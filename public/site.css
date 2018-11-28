@@ -56,21 +56,28 @@
 
 #sidebar ul li a {
   padding: 10px;
-  font-size: 1.1em;
+  font-size: 2.0em;
   color: #fff;
   display: block;
 
 }
-
+#addAmount{
+  font-weight: bold;
+  font-size:1.1em
+}
+#remAmount{
+  font-weight: bold;
+  font-size:1.1em
+}
 #sidebar ul li a:hover {
-  color: #7386D5;
+  color:#5b9291;
   background: #fff;
 }
 
 #sidebar ul li.active>a,
 a[aria-expanded="true"] {
   color: #fff;
-  background: #6d7fcc;
+  background: #5b9291;
 }
 
 ul ul a {

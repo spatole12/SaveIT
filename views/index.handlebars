@@ -22,11 +22,11 @@
                                                 <button onclick="closeForm()" class='emergencyremoval pull-right'><span>x</span></button>
                                                 <div class="row">
                                                     <label for="amount" class="labelfont"><b>Enter your Savings amount</b></label>
-                                                    <input type="number" placeholder="Amount" name="amount" required>
+                                                    <input type="number" placeholder="Amount" name="amount" id="amount" required>
                                                 </div>
 
                                                 <div class="row foot">
-                                                    <button type="submit" class="btn">Save</button>
+                                                    <button type="button" class="btn" onclick="addAmount()">Save</button>
                                                     <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
                                                 </div>
 
@@ -77,11 +77,11 @@
                                                 <button onclick="closeForm2()" class=' pull-right'><span>x</span></button>
                                                 <div class="row">
                                                     <label for="amount" class="labelfont"><b>Enter amount to be removed</b></label>
-                                                    <input type="number" placeholder="Amount" name="amount" required>
+                                                    <input type="number" id="emergencyRem" placeholder="Amount" name="amount" required>
                                                 </div>
 
                                                 <div class="row foot">
-                                                    <button type="submit" class="btn">Remove</button>
+                                                    <button type="button" onclick="removeAmount()" class="btn">Remove</button>
                                                     <button type="button" class="btn cancel" onclick="closeForm2()">Close</button>
                                                 </div>
                                             </form>
@@ -93,9 +93,13 @@
                                 <div class="row" style="height:100%">
                                     <div class="col-sm-8" style="height:100%">
                                         <span class="empty-column"></span>
+                                        <label>Saving Amount added: </label>
+                                        <p><span id='addAmount'></span></p>
                                     </div>
                                     <div class="col-sm-4">
                                         <span class="empty-column"></span>
+                                        <label> Amount removed: </label>
+                                        <p><span id='remAmount'></span></p>
                                     </div>
                                 </div>
                             </div>
@@ -199,7 +203,16 @@
         function openForm() {
             document.getElementById("myForm").style.display = "inline-block";
         }
-
+         function addAmount() {
+           document.getElementById('addAmount').innerHTML = 
+                    document.getElementById("amount").value;
+                    document.getElementById("myForm").style.display = "none";
+        }
+        function removeAmount() {
+           document.getElementById('remAmount').innerHTML = 
+                    document.getElementById("emergencyRem").value;
+                    document.getElementById("myForm2").style.display = "none";
+        }
         function closeForm() {
             document.getElementById("myForm").style.display = "none";
         }
