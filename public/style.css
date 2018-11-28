@@ -1153,6 +1153,16 @@ nav bar
 	font-weight: bold;
 	font-size:1.1em
   }
+  #addAmntdiv{
+	background-color: #5b9291;
+	  font-size:1.5em;
+	  color: #fff;
+  }
+  #remAmntdiv{
+	background-color: #5b9291;
+	  font-size:1.5em;
+	  color: #fff;
+  }
   #sidebar ul li.active>a,
   a[aria-expanded="true"] {
 	color: #fff;
