@@ -1,7 +1,6 @@
-
-    <!--===================== FIRST SECTION ==================================-->
-    <!-- Main container -->
-    <div style="width:100%">
+<!--===================== FIRST SECTION ==================================-->
+<!-- Main container -->
+<div style="width:100%;height:100%">
 
         <!-- bloc-0 -->
 
@@ -18,8 +17,15 @@
                                     <div class="panel-body savingbuttons">
                                         <button class="button addsavingsbtn" onclick="openForm()"><span>Add Savings</span></button>
                                         <div class="form-popup" id="myForm">
-                                            <form action="#" class="form-container">
-                                                <button onclick="closeForm()" class='emergencyremoval pull-right'><span>x</span></button>
+                                            <form action="/users/saving" class="form-container" method="POST">
+                                            <button onclick="closeForm()" class='emergencyremoval pull-right' style="    align-items: center;
+    background: #d20000f7 !important;
+    border: 0px !important;
+    width: 28px !important;
+    font-size: 1.8rem;
+    color: white;
+    border-radius: 0px;
+    margin: -10px -10px;"><span>X</span></button>
                                                 <div class="row">
                                                     <label for="amount" class="labelfont"><b>Enter your Savings amount</b></label>
                                                     <input type="number" placeholder="Amount" name="amount" required>
@@ -30,42 +36,9 @@
                                                     <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
                                                 </div>
 
-                                                {{!-- <div class="container-contact2-form-btn">
-                                                    <div class="wrap-contact2-form-btn">
-                                                        <div class="contact2-form-bgbtn"></div>
-                                                        <input class="contact2-form-btn" type="submit" value="Save">
-                                                            Save
-                                                        </input>
-                                                    </div>
-                                                </div> --}}
-
                                             </form>
                                         </div>
-                                        {{!-- <div class="form-popup" id="myForm">
-                                            <form>
-                                                <div class="wrap-contact2">
-                                                    <form class="contact2-form">
-                                                        <span class="contact2-form-title">
-                                                            Add Goal
-                                                        </span>
-
-                                                        <div class="wrap-input2">
-                                                            <input class="input2" type="text" name="goal_name" required>
-                                                            <span class="focus-input2" data-placeholder="GOAL NAME"></span>
-                                                        </div>
-
-                                                        <div class="container-contact2-form-btn">
-                                                            <div class="wrap-contact2-form-btn">
-                                                                <div class="contact2-form-bgbtn"></div>
-                                                                <button class="contact2-form-btn" type="submit">
-                                                                    Add Goal
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </form>
-                                        </div> --}}
+                                      
                                     </div>
                                 </div>
                                 <div class="panel removeSavings">
@@ -73,12 +46,20 @@
                                         <button class="button emergencyremoval" onclick="openForm2()"><span>Emergency
                                                 Removal</span></button>
                                         <div class="form-popup" id="myForm2">
-                                            <form action="#" class="form-container">
-                                                <button onclick="closeForm2()" class=' pull-right'><span>x</span></button>
-                                                <div class="row">
-                                                    <label for="amount" class="labelfont"><b>Enter amount to be removed</b></label>
-                                                    <input type="number" placeholder="Amount" name="amount" required>
-                                                </div>
+                                            <form action="/goals/remove" method="POST" class="form-container">
+                                            <button onclick="closeForm2()" class=' pull-right' style="  align-items: center;
+    background: #d20000f7 !important;
+    border: 0px !important;
+    width: 28px !important;
+    font-size: 1.8rem;
+    color: white;
+    border-radius: 0px;
+    margin: -10px -10px;"><span>x</span></button>
+                                            <div class="row">
+                                                <label for="ramount" class="labelfont"><b>Enter amount to be removed</b></label>
+                                                <input type="number" id="emergencyRem" placeholder="Amount" name="ramount"
+                                                    required>
+                                            </div>
 
                                                 <div class="row foot">
                                                     <button type="submit" class="btn">Remove</button>
@@ -89,15 +70,29 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-8" style="height:100%">
-                                <div class="row" style="height:100%">
-                                    <div class="col-sm-8" style="height:100%">
-                                        <span class="empty-column"></span>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <span class="empty-column"></span>
+                        <div class="col-sm-8" style=>
+                            {{!-- <div class="row"> --}}
+                                <div class="col-sm-8" style="height: 90%;    padding: 0px 0px 20px 0px;">
+                                    <div class="panel" id="addAmntdiv" style="height: 100%;margin: 20px 0px 20px 0px;">
+                                        <div class="panel-body savingbuttons">
+                                            <span class="empty-column"></span>
+                                            <label>Total Savings :</label>
+                                            <span id='addAmount'></span>
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="col-sm-4" style="    height: 90%;    border-left: 3px solid transparent;    padding: 0px 0px 20px 0px;">
+                                    <div class="panel" id="remAmntdiv" style=" height:100%;margin: 20px 0px 20px 0px;">
+                                        <div class="panel-body savingbuttons">
+
+                                            <span class="empty-column"></span>
+                                            <label>Latest Amount added: </label>
+                                            <span id='remAmount'></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{!--
+                            </div> --}}
                             </div>
                         </div>
                     </div>
@@ -116,71 +111,70 @@
                                 <div class="text-center" style="height:100%">
                                     <a href='goals/add'><button class="button" style="height:100%"><span>Add Goal</span></button></a>
                                 </div>
-                                <div class="form-popup2" id="myForm3">
-                                    <form action="/goals" class="form-container2" method="POST">
-                                        <label for="Goals" class="labelfont"><b>Enter your goal</b></label>
-                                        <input type="text" placeholder="Goal" name="goal_name" id="myForm4" required>
-                                        <input type="number" placeholder="Goal amount" name="gamount" min="1" required>
-                                        <input type="number" placeholder="Priority" name="gpriority" min="1" required>
-                                        <button type="submit" class="btn">Add</button>
-                                        <button type="button" class="btn cancel" onclick="closeForm3()">Close</button>
-                                    </form>
-                                </div>
-                            </div>
+                            {{!-- <div class="form-popup2" id="myForm3">
+                                <form action="/goals" class="form-container2" method="POST">
+                                    <label for="Goals" class="labelfont"><b>Enter your goal</b></label>
+                                    <input type="text" placeholder="Goal" name="goal_name" id="myForm4" required>
+                                    <input type="number" placeholder="Goal amount" name="gamount" min="1" required>
+                                    <input type="number" placeholder="Priority" name="gpriority" min="1" required>
+                                    <button type="submit" class="btn">Add</button>
+                                    <button type="button" class="btn cancel" onclick="closeForm3()">Close</button>
+                                </form>
+                            </div> --}}
                         </div>
                     </div>
-                    {{#each goals}}
-                    <div class="col-sm-3">
-                        <div class="panel">
-                            <div class="panel-body">
-                                <button onclick="closeForm5()" class=' pull-right' value={{this._id}}><span class="ion ion-trash-a icon-md"></span></button>
-                                <span>
-                                    <div class="goalFont">{{this.gname}}</div>
-                                </span>
-                                <div class='progress'>
-                                    <div class='progress-bar' role='progressbar' aria-valuenow='70' aria-valuemin='0'
-                                        aria-valuemax='100' style='width:20%'> 20%</div>
-                                </div>
-                                <div class="form-popup5" id="myForm5">
-                                    <form action="#" class="form-container5">
-                                        <label for="edition" class="labelfont"><b>{{this.gname}}</b></label>
-                                        <button type="button" class="btn cancel" onclick="closeForm5()">Close</button>
-                                    </form>
-                                </div>
-
-                                <a href='goals/edit'><button value={{this._id}} class="btn btn-d btn-lg btn-block">
-                                        <div class="text-center">Edit</div>
-                                    </button></a>
-
+                </div>
+                {{#each goals}}
+                <div class="col-sm-3">
+                    <div class="panel">
+                        <div class="panel-body">
+                            <button onclick="deleteTab(this)" class='clsDeleteGoal pull-right' value={{this._id}} style="    background: transparent !important;
+    border: 0px !important;
+    width: 24px !important;
+    font-size: 1.8rem;
+    margin: -10px;
+    height: 24px !important;"><span
+                                    class="ion ion-trash-a icon-md"></span></button>
+                            <span>
+                                <div class="goalFont">{{this.gname}}</div>
+                            </span>
+                            <div class='progress'>
+                                <div class='progress-bar' role='progressbar' aria-valuenow='70' aria-valuemin='0'
+                                    aria-valuemax='100' style='width:{{this.pfulfilment}}%'> {{this.pfulfilment}}</div>
                             </div>
+                            <div class="form-popup5" id="myForm5">
+                                <form action="#" class="form-container5">
+                                    <label for="edition" class="labelfont"><b>{{this.gname}}</b></label>
+                                    <button type="button" class="btn cancel" onclick="closeForm5()">Close</button>
+                                </form>
+                            </div>
+
+                            <a href='goals/edit'><button value={{this._id}} class="btn btn-d btn-lg btn-block">
+                                    <div class="text-center" style="font-size: 1.3rem;font-weight: bold;">Edit</div>
+                                </button></a>
                         </div>
                     </div>
-                    {{/each}}
-                    <div class="col-sm-3">
-                        <div class="panel">
-                            <div class="panel-body">
-                                <span class="ion ion-trash-a icon-md pull-right"></span>
-                                <li class="goalFont">Misc.</li>
-                                <div class='progress'>
-                                    <div class='progress-bar' role='progressbar' aria-valuenow='70' aria-valuemin='0'
-                                        aria-valuemax='100' style='width:20%'> 20%</div>
-                                </div>
-
-                                <div class="form-popup5" id="myForm6">
-                                    <form action="#" class="form-container5">
-                                        <label for="edition" class="labelfont"><b>Misc.</b></label>
-                                    </form>
-                                </div>
-                                {{!-- <button onclick="openForm6()" value={{this._id}} class="btn btn-d btn-lg btn-block">
-                                    <div class="text-center">Edit</div>
-                                </button> --}}
+                </div>
+                {{/each}}
+                <div class="col-sm-3">
+                    <div class="panel" style="height:82%">
+                        <div class="panel-body" style="height:100%">
+                            <div class="goalFont">Miscellaneous</div>
+                            <div class="form-popup5" id="myForm6">
+                                <form action="#" class="form-container5">
+                                    <label for="edition" class="labelfont"><b>Miscellaneous</b></label>
+                                </form>
                             </div>
+                            {{!-- <button onclick="openForm6()" value={{this._id}} class="btn btn-d btn-lg btn-block">
+                                <div class="text-center">Edit</div>
+                            </button> --}}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- bloc-2 END -->
+    </div>
+    <!-- bloc-2 END -->
 
         <!-- ScrollToTop Button -->
         <a class="bloc-button btn btn-d scrollToTop" onclick="scrollToTarget('1')"><span class="fa fa-chevron-up"></span></a>

@@ -3,7 +3,7 @@ const router = express.Router();
 const data = require("../data");
 const goalData = data.goals;
 const userData = data.users;
-const userId = "7ba27f7b-6a53-402f-93f5-f303b9c0f956";
+const userId = "18293ea2-1a06-4c55-8fb3-4e1acf0ba484";
 try {
   // router.get("/new", (req, res) => {
   //   console.log("hi");
@@ -22,7 +22,19 @@ try {
       goal: goal
     });
   });
+  router.get("/dashboard", async (req, res) => {
+    // const goalList = await goalData.getAllgoals();
 
+    console.log(goalList.length);
+    res.render('./dashboard', {
+      sitecss: "site.css",
+      stylecss: "style.css",
+      goals: goalList
+    });
+    // res.render("goals/index", {
+    //   goals: goalList
+    // });
+  });
   router.get("/tag/:tag", (req, res) => {
     goalData.getgoalsByTag(req.params.tag).then(goalList => {
       res.render("goals/index", {
@@ -43,11 +55,31 @@ try {
     //   goals: goalList
     // });
   });
+  
+  router.post("/remove", async (req, res) => {
+    let removalData = req.body;
+    if (!removalData) {
+      res.status(400).json({
+        error: "You must provide amount to remove"
+      });
+      return;
+    }
+    console.log(removalData);
+    let removal_status = await goalData.emergencyRemoval(removalData.ramount);
+    if (removal_status == 1)
+    {
+      res.redirect('/goals');
+    }
+    else{
+      res.sendStatus(500);
+    }
+
+  });
 
   router.post("/", async (req, res) => {
     let wishGoalData = req.body;
     let errors = [];
-console.log(wishGoalData);
+    console.log(wishGoalData);
     if (!wishGoalData.gname) {
       errors.push("No title provided");
     }
@@ -75,12 +107,13 @@ console.log(wishGoalData);
       const newgoal = await goalData.addgoal(
         wishGoalData.gname,
         // wishGoalData."most important",
-        "most important",
+        wishGoalData.gdescription,
         wishGoalData.tags || [],
         userId,
         wishGoalData.gamount,
         wishGoalData.gstatus,
         wishGoalData.gpriority,
+        wishGoalData.gpercent,
 
       );
       console.log(newgoal);

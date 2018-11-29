@@ -6,13 +6,15 @@
   <meta name="keywords" content="">
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
   <link rel="shortcut icon" type="image/png" href="favicon.png">
 
   <link rel="stylesheet" type="text/css" href="/public/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="/public/{{sitecss}}">
   <link rel="stylesheet" type="text/css" href="/public/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="/public/ionicons.min.css">
-  {{!-- <link rel="stylesheet" type="text/css" href="css/style.css"> --}}
+  {{!--
+  <link rel="stylesheet" type="text/css" href="css/style.css"> --}}
 
 
   <script src="/public/jsCode/jquery-2.1.0.js"></script>
@@ -28,13 +30,15 @@
   <meta name=" viewport" content="width=device-width initial-scale=1">
 </head>
 
-{{!-- <body>
+{{!--
+
+<body>
   <div id="header">
     <div id="logo">
-        <img src="/public/jar.png" height="40" width="60" top="0">
-        <font size="5" style="color:rgb(0, 0, 0);line-height:50px">SaveIT</font>
+      <img src="/public/jar.png" height="40" width="60" top="0">
+      <font size="5" style="color:rgb(0, 0, 0);line-height:50px">SaveIT</font>
     </div>
-</div>
+  </div>
   {{{body}}}
 </body> --}}
 
@@ -42,15 +46,17 @@
 <body>
   <div id="header">
     <div id="logo">
-      <img src="/public/jar.png" height="40" width="60" top="0">
-      <font size="5" style="color:black;line-height:50px">SaveIT</font>
+      <img src="/public/jar.png" height="40" width="60" top="0" style="
+    vertical-align: top;
+">
+      <font size="5" style="color:black">SaveIT</font>
     </div>
   </div>
   <div class="wrapper">
     <nav id="sidebar">
       <ul class="list-unstyled components">
         <li class="active">
-          <a href="#homeSubmenu" aria-expanded="false" class="dropdown-toggle">Home</a>
+          <a href="../goals" aria-expanded="false">Home</a>
           {{!-- <ul class="collapse list-unstyled" id="homeSubmenu"> --}}
             {{!-- <li>
               <a href="#">Home 1</a>
@@ -64,7 +70,7 @@
           </ul> --}}
         </li>
         <li>
-          <a href="#ThirdSec">Dashboard</a>
+          <a href="goals/dashboard">Dashboard</a>
         </li>
         {{!-- <li>
           <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
@@ -92,7 +98,7 @@
     <div id="content">
       <nav>
         <div>
-          <button type="button" id="sidebarCollapse" class="btn clsexpandcollapse">
+          <button type="button" id="sidebarCollapse" class="btn clsexpandcollapse" style="background: #5b9291;border-radius: 0px;color: white;">
             {{!-- <i class="fas fa-align-left"></i> --}}
             <span>☰</span>
           </button>
@@ -107,7 +113,7 @@
   </div>
 
 
- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
     crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
     crossorigin="anonymous"></script>
@@ -116,4 +122,5 @@
   <script src="/public/jsCode/jquery.min.js"></script>
   <script src="/public/jsCode/Chart.min.js"></script>
   <script src="/public/jsCode/bar.js"></script>
+
 </html>

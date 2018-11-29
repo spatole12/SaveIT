@@ -28,6 +28,29 @@ try {
     );
   });
 
+ router.post("/saving",async(req,res)=>{
+   let savingInfo = req.body; 
+   if (!savingInfo) {
+    res.status(400).json({
+      error: "You must provide savings"
+    });
+    return;
+  }
+  console.log(savingInfo);
+  let distri_status = await userData.addSavingsToGoals(savingInfo.amount)
+  if (distri_status == 1)
+  {
+    res.redirect('/goals');
+  }
+  else{
+    res.sendStatus(500);
+  }
+  
+
+ });
+
+
+
   router.post("/", (req, res) => {
     let userInfo = req.body;
 

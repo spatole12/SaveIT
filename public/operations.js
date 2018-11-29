@@ -14,16 +14,16 @@ function closeForm2() {
     document.getElementById("myForm2").style.display = "none";
 }
 
-function deleteTab(){
+function deleteTab(ele_del){
 
-    let ele_id = document.getElementById("delete").value;
+    let ele_id = ele_del.value;
    // return ele_id;
     $.ajax({
         type:'delete',
-        url:'http://localhost:7000/goals/' + ele_id,
+        url:'http://localhost:4000/goals/' + ele_id,
           success : function() {
             console.log('success');
-            window.location.replace("http://localhost:3000/goals");
+            window.location.replace("http://localhost:4000/goals");
          },
         error : function() {
           console.log('error');
@@ -107,3 +107,6 @@ function newElement() {
     //   }
     // }
 }
+
+//==============================================================================================
+
