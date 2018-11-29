@@ -1,326 +1,341 @@
+<!--===================== FIRST SECTION ==================================-->
+<!-- Main container -->
+<div style="width:100%;height:100%">
 
-    <!--===================== FIRST SECTION ==================================-->
-    <!-- Main container -->
-    <div style="width:100%">
+    <!-- bloc-0 -->
 
-        <!-- bloc-0 -->
+    <!-- bloc-0 END -->
 
-        <!-- bloc-0 END -->
+    <!-- bloc-1 -->
+    <div class="bloc bgc-white l-bloc" id="bloc-1">
+        <div class="container bloc-lg">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-4 clsSavingsColumn">
+                            <div class="panel addSavings">
+                                <div class="panel-body savingbuttons">
+                                    <button class="button addsavingsbtn" onclick="openForm()"><span>Add Savings</span></button>
+                                    <div class="form-popup" id="myForm">
+                                        <form action="#" class="form-container">
+                                            <button onclick="closeForm()" class='emergencyremoval pull-right' style="    align-items: center;
+    background: #d20000f7 !important;
+    border: 0px !important;
+    width: 28px !important;
+    font-size: 1.8rem;
+    color: white;
+    border-radius: 0px;
+    margin: -10px -10px;"><span>X</span></button>
+                                            <div class="row">
+                                                <label for="amount" class="labelfont"><b>Enter your Savings amount</b></label>
+                                                <input type="number" placeholder="Amount" name="amount" id="amount"
+                                                    required>
+                                            </div>
 
-        <!-- bloc-1 -->
-        <div class="bloc bgc-white l-bloc" id="bloc-1">
-            <div class="container bloc-lg">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="row">
-                            <div class="col-sm-4 clsSavingsColumn">
-                                <div class="panel addSavings">
-                                    <div class="panel-body savingbuttons">
-                                        <button class="button addsavingsbtn" onclick="openForm()"><span>Add Savings</span></button>
-                                        <div class="form-popup" id="myForm">
-                                            <form action="#" class="form-container">
-                                                <button onclick="closeForm()" class='emergencyremoval pull-right'><span>x</span></button>
-                                                <div class="row">
-                                                    <label for="amount" class="labelfont"><b>Enter your Savings amount</b></label>
-                                                    <input type="number" placeholder="Amount" name="amount" id="amount" required>
+                                            <div class="row foot">
+                                                <button type="button" class="btn" onclick="addAmount()">Save</button>
+                                                <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                                            </div>
+
+                                            {{!-- <div class="container-contact2-form-btn">
+                                                <div class="wrap-contact2-form-btn">
+                                                    <div class="contact2-form-bgbtn"></div>
+                                                    <input class="contact2-form-btn" type="submit" value="Save">
+                                                    Save
+                                                    </input>
                                                 </div>
+                                            </div> --}}
 
-                                                <div class="row foot">
-                                                    <button type="button" class="btn" onclick="addAmount()">Save</button>
-                                                    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-                                                </div>
+                                        </form>
+                                    </div>
+                                    {{!-- <div class="form-popup" id="myForm">
+                                        <form>
+                                            <div class="wrap-contact2">
+                                                <form class="contact2-form">
+                                                    <span class="contact2-form-title">
+                                                        Add Goal
+                                                    </span>
 
-                                                {{!-- <div class="container-contact2-form-btn">
-                                                    <div class="wrap-contact2-form-btn">
-                                                        <div class="contact2-form-bgbtn"></div>
-                                                        <input class="contact2-form-btn" type="submit" value="Save">
-                                                            Save
-                                                        </input>
+                                                    <div class="wrap-input2">
+                                                        <input class="input2" type="text" name="goal_name" required>
+                                                        <span class="focus-input2" data-placeholder="GOAL NAME"></span>
                                                     </div>
-                                                </div> --}}
 
-                                            </form>
-                                        </div>
-                                        {{!-- <div class="form-popup" id="myForm">
-                                            <form>
-                                                <div class="wrap-contact2">
-                                                    <form class="contact2-form">
-                                                        <span class="contact2-form-title">
-                                                            Add Goal
-                                                        </span>
-
-                                                        <div class="wrap-input2">
-                                                            <input class="input2" type="text" name="goal_name" required>
-                                                            <span class="focus-input2" data-placeholder="GOAL NAME"></span>
+                                                    <div class="container-contact2-form-btn">
+                                                        <div class="wrap-contact2-form-btn">
+                                                            <div class="contact2-form-bgbtn"></div>
+                                                            <button class="contact2-form-btn" type="submit">
+                                                                Add Goal
+                                                            </button>
                                                         </div>
-
-                                                        <div class="container-contact2-form-btn">
-                                                            <div class="wrap-contact2-form-btn">
-                                                                <div class="contact2-form-bgbtn"></div>
-                                                                <button class="contact2-form-btn" type="submit">
-                                                                    Add Goal
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </form>
-                                        </div> --}}
-                                    </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </form>
+                                    </div> --}}
                                 </div>
-                                <div class="panel removeSavings">
-                                    <div class="panel-body savingbuttons">
-                                        <button class="button emergencyremoval" onclick="openForm2()"><span>Emergency
-                                                Removal</span></button>
-                                        <div class="form-popup" id="myForm2">
-                                            <form action="#" class="form-container">
-                                                <button onclick="closeForm2()" class=' pull-right'><span>x</span></button>
-                                                <div class="row">
-                                                    <label for="amount" class="labelfont"><b>Enter amount to be removed</b></label>
-                                                    <input type="number" id="emergencyRem" placeholder="Amount" name="amount" required>
-                                                </div>
+                            </div>
+                            <div class="panel removeSavings">
+                                <div class="panel-body savingbuttons">
+                                    <button class="button emergencyremoval" onclick="openForm2()"><span>Emergency
+                                            Removal</span></button>
+                                    <div class="form-popup" id="myForm2">
+                                        <form action="#" class="form-container">
+                                            <button onclick="closeForm2()" class=' pull-right' style="  align-items: center;
+    background: #d20000f7 !important;
+    border: 0px !important;
+    width: 28px !important;
+    font-size: 1.8rem;
+    color: white;
+    border-radius: 0px;
+    margin: -10px -10px;"><span>x</span></button>
+                                            <div class="row">
+                                                <label for="amount" class="labelfont"><b>Enter amount to be removed</b></label>
+                                                <input type="number" id="emergencyRem" placeholder="Amount" name="amount"
+                                                    required>
+                                            </div>
 
-                                                <div class="row foot">
-                                                    <button type="button" onclick="removeAmount()" class="btn">Remove</button>
-                                                    <button type="button" class="btn cancel" onclick="closeForm2()">Close</button>
-                                                </div>
-                                            </form>
-                                        </div>
+                                            <div class="row foot">
+                                                <button type="button" onclick="removeAmount()" class="btn">Remove</button>
+                                                <button type="button" class="btn cancel" onclick="closeForm2()">Close</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-8" style="height:100%">
-                                <div class="row" style="height:100%">
-                                    <div class="col-sm-4" >
-                                        <div class="panel" id="addAmntdiv" >
+                        </div>
+                        <div class="col-sm-8" style=>
+                            {{!-- <div class="row"> --}}
+                                <div class="col-sm-8" style="height: 90%;    padding: 0px 0px 20px 0px;">
+                                    <div class="panel" id="addAmntdiv" style="height: 100%;margin: 20px 0px 20px 0px;">
                                         <div class="panel-body savingbuttons">
-                                        <span class="empty-column"></span>
-                                        <label>Latest Amount added: </label>
-                                        <span id='addAmount'></span>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4" >
-                                         <div class="panel" id="remAmntdiv">
-                                         <div class="panel-body savingbuttons">
-                                            
-                                        <span class="empty-column"></span>
-                                        <label>Total Savings : </label>
-                                        <span id='remAmount'></span>
-                                        </div>
+                                            <span class="empty-column"></span>
+                                            <label>Total Savings :</label>
+                                            <span id='addAmount'></span>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="col-sm-4" style="    height: 90%;    border-left: 3px solid transparent;    padding: 0px 0px 20px 0px;">
+                                    <div class="panel" id="remAmntdiv" style=" height:100%;margin: 20px 0px 20px 0px;">
+                                        <div class="panel-body savingbuttons">
+
+                                            <span class="empty-column"></span>
+                                            <label>Latest Amount added: </label>
+                                            <span id='remAmount'></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{!--
+                            </div> --}}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- bloc-1 END -->
-
-        <!-- bloc-2 -->
-        <div class="bloc bgc-white l-bloc" id="bloc-2">
-            <div class="container bloc-sm">
-                <div class="row">
-                    <div class="col-sm-3">
-                        <div class="panel" style="height:82%">
-                            <div class="panel-body" style="height:100%">
-                                <div class="text-center" style="height:100%">
-                                    <a href='goals/add'><button class="button" style="height:100%"><span>Add Goal</span></button></a>
-                                </div>
-                                <div class="form-popup2" id="myForm3">
-                                    <form action="/goals" class="form-container2" method="POST">
-                                        <label for="Goals" class="labelfont"><b>Enter your goal</b></label>
-                                        <input type="text" placeholder="Goal" name="goal_name" id="myForm4" required>
-                                        <input type="number" placeholder="Goal amount" name="gamount" min="1" required>
-                                        <input type="number" placeholder="Priority" name="gpriority" min="1" required>
-                                        <button type="submit" class="btn">Add</button>
-                                        <button type="button" class="btn cancel" onclick="closeForm3()">Close</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {{#each goals}}
-                    <div class="col-sm-3">
-                        <div class="panel">
-                            <div class="panel-body">
-                                <button onclick="closeForm5()" class=' pull-right' value={{this._id}}><span class="ion ion-trash-a icon-md"></span></button>
-                                <span>
-                                    <div class="goalFont">{{this.gname}}</div>
-                                </span>
-                                <div class='progress'>
-                                    <div class='progress-bar' role='progressbar' aria-valuenow='70' aria-valuemin='0'
-                                        aria-valuemax='100' style='width:20%'> 20%</div>
-                                </div>
-                                <div class="form-popup5" id="myForm5">
-                                    <form action="#" class="form-container5">
-                                        <label for="edition" class="labelfont"><b>{{this.gname}}</b></label>
-                                        <button type="button" class="btn cancel" onclick="closeForm5()">Close</button>
-                                    </form>
-                                </div>
-
-                                <a href='goals/edit'><button value={{this._id}} class="btn btn-d btn-lg btn-block">
-                                        <div class="text-center">Edit</div>
-                                    </button></a>
-
-                            </div>
-                        </div>
-                    </div>
-                    {{/each}}
-                    <div class="col-sm-3">
-                        <div class="panel">
-                            <div class="panel-body">
-                                <span class="ion ion-trash-a icon-md pull-right"></span>
-                                <li class="goalFont">Misc.</li>
-                                <div class='progress'>
-                                    <div class='progress-bar' role='progressbar' aria-valuenow='70' aria-valuemin='0'
-                                        aria-valuemax='100' style='width:20%'> 20%</div>
-                                </div>
-
-                                <div class="form-popup5" id="myForm6">
-                                    <form action="#" class="form-container5">
-                                        <label for="edition" class="labelfont"><b>Misc.</b></label>
-                                    </form>
-                                </div>
-                                {{!-- <button onclick="openForm6()" value={{this._id}} class="btn btn-d btn-lg btn-block">
-                                    <div class="text-center">Edit</div>
-                                </button> --}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- bloc-2 END -->
-
-        <!-- ScrollToTop Button -->
-        <a class="bloc-button btn btn-d scrollToTop" onclick="scrollToTarget('1')"><span class="fa fa-chevron-up"></span></a>
-        <!-- ScrollToTop Button END-->
-
-
     </div>
-    <!-- Main container END -->
+    <!-- bloc-1 END -->
+
+    <!-- bloc-2 -->
+    <div class="bloc bgc-white l-bloc" id="bloc-2">
+        <div class="container bloc-sm">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="panel" style="height:82%">
+                        <div class="panel-body" style="height:100%">
+                            <div class="text-center" style="height:100%">
+                                <a href='goals/add'><button class="button" style="height:100%"><span>Add Goal</span></button></a>
+                            </div>
+                            {{!-- <div class="form-popup2" id="myForm3">
+                                <form action="/goals" class="form-container2" method="POST">
+                                    <label for="Goals" class="labelfont"><b>Enter your goal</b></label>
+                                    <input type="text" placeholder="Goal" name="goal_name" id="myForm4" required>
+                                    <input type="number" placeholder="Goal amount" name="gamount" min="1" required>
+                                    <input type="number" placeholder="Priority" name="gpriority" min="1" required>
+                                    <button type="submit" class="btn">Add</button>
+                                    <button type="button" class="btn cancel" onclick="closeForm3()">Close</button>
+                                </form>
+                            </div> --}}
+                        </div>
+                    </div>
+                </div>
+                {{#each goals}}
+                <div class="col-sm-3">
+                    <div class="panel">
+                        <div class="panel-body">
+                            <button onclick="closeForm5()" class='clsDeleteGoal pull-right' value={{this._id}} style="    background: transparent !important;
+    border: 0px !important;
+    width: 24px !important;
+    font-size: 1.8rem;
+    margin: -10px;
+    height: 24px !important;"><span
+                                    class="ion ion-trash-a icon-md"></span></button>
+                            <span>
+                                <div class="goalFont">{{this.gname}}</div>
+                            </span>
+                            <div class='progress'>
+                                <div class='progress-bar' role='progressbar' aria-valuenow='70' aria-valuemin='0'
+                                    aria-valuemax='100' style='width:20%'> 20%</div>
+                            </div>
+                            <div class="form-popup5" id="myForm5">
+                                <form action="#" class="form-container5">
+                                    <label for="edition" class="labelfont"><b>{{this.gname}}</b></label>
+                                    <button type="button" class="btn cancel" onclick="closeForm5()">Close</button>
+                                </form>
+                            </div>
+
+                            <a href='goals/edit'><button value={{this._id}} class="btn btn-d btn-lg btn-block">
+                                    <div class="text-center" style="font-size: 1.3rem;font-weight: bold;">Edit</div>
+                                </button></a>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+                <div class="
+                                        col-sm-3">
+                    <div class="panel" style="height:82%">
+                        <div class="panel-body" style="height:100%">
+                            <div class="goalFont">Miscellaneous</div>
+                            <div class="form-popup5" id="myForm6">
+                                <form action="#" class="form-container5">
+                                    <label for="edition" class="labelfont"><b>Miscellaneous</b></label>
+                                </form>
+                            </div>
+                            {{!-- <button onclick="openForm6()" value={{this._id}} class="btn btn-d btn-lg btn-block">
+                                <div class="text-center">Edit</div>
+                            </button> --}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- bloc-2 END -->
+
+    <!-- ScrollToTop Button -->
+    <a class="bloc-button btn btn-d scrollToTop" onclick="scrollToTarget('1')"><span class="fa fa-chevron-up"></span></a>
+    <!-- ScrollToTop Button END-->
+
+
+</div>
+<!-- Main container END -->
 
 
 
-    <!-- Preloader -->
-    <div id="page-loading-blocs-notifaction"></div>
-    <!-- Preloader END -->
-    <script>
-        function openForm() {
-            document.getElementById("myForm").style.display = "inline-block";
+<!-- Preloader -->
+<div id="page-loading-blocs-notifaction"></div>
+<!-- Preloader END -->
+<script>
+    function openForm() {
+        document.getElementById("myForm").style.display = "inline-block";
+    }
+    function addAmount() {
+        document.getElementById('addAmount').innerHTML =
+            document.getElementById("amount").value;
+        document.getElementById("myForm").style.display = "none";
+    }
+    function removeAmount() {
+        document.getElementById('remAmount').innerHTML =
+            document.getElementById("emergencyRem").value;
+        document.getElementById("myForm2").style.display = "none";
+    }
+    function closeForm() {
+        document.getElementById("myForm").style.display = "none";
+    }
+    function openForm2() {
+        document.getElementById("myForm2").focus();
+        document.getElementById("myForm2").style.display = "block";
+
+    }
+
+    function closeForm2() {
+        document.getElementById("myForm2").style.display = "none";
+    }
+</script>
+<!--===================== SECOND SECTION ==================================-->
+
+
+<script>
+    // Create a "close" button and append it to each list item
+    var myNodelist = document.getElementsByClassName("goalList");
+    var i;
+    for (i = 0; i < myNodelist.length; i++) {
+        var span = document.createElement("SPAN");
+        var txt = document.createTextNode("\u00D7");
+        span.className = "close";
+
+        span.appendChild(txt);
+        myNodelist[i].appendChild(span);
+
+    }
+
+    function openForm3() {
+        document.getElementById("myForm3").style.display = "block";
+    }
+
+    function closeForm3() {
+        document.getElementById("myForm3").style.display = "none";
+    }
+    function openForm5() {
+        document.getElementById("myForm5").style.display = "block";
+    }
+    function openForm6() {
+        document.getElementById("myForm6").style.display = "block";
+    }
+    function closeForm5() {
+        document.getElementById("myForm5").style.display = "none";
+    }
+
+    // Click on a close button to hide the current list item
+    var close = document.getElementsByClassName("close");
+    var i;
+    for (i = 0; i < close.length; i++) {
+        close[i].onclick = function () {
+            var div = this.parentElement;
+            div.style.display = "none";
+
         }
-         function addAmount() {
-           document.getElementById('addAmount').innerHTML = 
-                    document.getElementById("amount").value;
-                    document.getElementById("myForm").style.display = "none";
+    }
+
+    // Add a "checked" symbol when clicking on a list item
+    var list = document.querySelector('ul');
+    list.addEventListener('click', function (ev) {
+        if (ev.target.tagName === 'LI') {
+            ev.target.classList.toggle('checked');
         }
-        function removeAmount() {
-           document.getElementById('remAmount').innerHTML = 
-                    document.getElementById("emergencyRem").value;
-                    document.getElementById("myForm2").style.display = "none";
-        }
-        function closeForm() {
-            document.getElementById("myForm").style.display = "none";
-        }
-        function openForm2() {
-            document.getElementById("myForm2").focus();
-            document.getElementById("myForm2").style.display = "block";
+    }, false);
 
-        }
+    // Create a new list item when clicking on the "Add" button
+    function newElement() {
+        // var li = document.createElement("li");
+        // var l_strName = String(document.getElementsByName("goalText")) ;
+        // console.log(l_strName);
+        // var l_numInitialAmount = Number(document.getElementsByName("goalamountText")) ;
+        // var l_numMinimumAmount = Number(document.getElementsByName("goalinitialText")) ;
+        console.log(document.getElementById("myForm4"));
+        var li = "<div class='col-sm-3'><div class='goalList'><li>" + document.getElementsById("myForm4").value + "</li><div class='progress'><div class='progress-bar' role='progressbar' aria-valuenow='70' aria-valuemin='0' aria-valuemax='100' style='width:20%'> 20%</div></div></div></div>";
+        // var inputValue = document.getElementById("myInput").value;
+        // var t = document.createTextNode(inputValue);
+        // li.appendChild(t);
+        // if (inputValue === '') {
+        // alert("You must write something!");
+        // } else {
+        // document.getElementById("myUL1").appendChild(li);
+        // }
+        // document.getElementById("myInput").value = "";
 
-        function closeForm2() {
-            document.getElementById("myForm2").style.display = "none";
-        }
-    </script>
-    <!--===================== SECOND SECTION ==================================-->
+        // var span = document.createElement("SPAN");
+        // var txt = document.createTextNode("\u00D7");
+        // span.className = "close";
+        // span.appendChild(txt);
+        // li.appendChild(span);
+        // if(l_strName&&l_numInitialAmount&&l_numMinimumAmount)
+        $(abc).prepend(li);
+        // for (i = 0; i < close.length; i++) {
+        //   close[i].onclick = function () {
+        //     var div = this.parentElement;
+        //     div.style.display = "none";
+        //   }
+        // }
+    }
 
-
-    <script>
-        // Create a "close" button and append it to each list item
-        var myNodelist = document.getElementsByClassName("goalList");
-        var i;
-        for (i = 0; i < myNodelist.length; i++) {
-            var span = document.createElement("SPAN");
-            var txt = document.createTextNode("\u00D7");
-            span.className = "close";
-
-            span.appendChild(txt);
-            myNodelist[i].appendChild(span);
-
-        }
-
-        function openForm3() {
-            document.getElementById("myForm3").style.display = "block";
-        }
-
-        function closeForm3() {
-            document.getElementById("myForm3").style.display = "none";
-        }
-        function openForm5() {
-            document.getElementById("myForm5").style.display = "block";
-        }
-        function openForm6() {
-            document.getElementById("myForm6").style.display = "block";
-        }
-        function closeForm5() {
-            document.getElementById("myForm5").style.display = "none";
-        }
-
-        // Click on a close button to hide the current list item
-        var close = document.getElementsByClassName("close");
-        var i;
-        for (i = 0; i < close.length; i++) {
-            close[i].onclick = function () {
-                var div = this.parentElement;
-                div.style.display = "none";
-
-            }
-        }
-
-        // Add a "checked" symbol when clicking on a list item
-        var list = document.querySelector('ul');
-        list.addEventListener('click', function (ev) {
-            if (ev.target.tagName === 'LI') {
-                ev.target.classList.toggle('checked');
-            }
-        }, false);
-
-        // Create a new list item when clicking on the "Add" button
-        function newElement() {
-            // var li = document.createElement("li");
-            // var l_strName = String(document.getElementsByName("goalText")) ;
-            // console.log(l_strName);
-            // var l_numInitialAmount = Number(document.getElementsByName("goalamountText")) ;
-            // var l_numMinimumAmount = Number(document.getElementsByName("goalinitialText")) ;
-            console.log(document.getElementById("myForm4"));
-            var li = "<div class='col-sm-3'><div class='goalList'><li>" + document.getElementsById("myForm4").value + "</li><div class='progress'><div class='progress-bar' role='progressbar' aria-valuenow='70' aria-valuemin='0' aria-valuemax='100' style='width:20%'> 20%</div></div></div></div>";
-            // var inputValue = document.getElementById("myInput").value;
-            // var t = document.createTextNode(inputValue);
-            // li.appendChild(t);
-            // if (inputValue === '') {
-            // alert("You must write something!");
-            // } else {
-            // document.getElementById("myUL1").appendChild(li);
-            // }
-            // document.getElementById("myInput").value = "";
-
-            // var span = document.createElement("SPAN");
-            // var txt = document.createTextNode("\u00D7");
-            // span.className = "close";
-            // span.appendChild(txt);
-            // li.appendChild(span);
-            // if(l_strName&&l_numInitialAmount&&l_numMinimumAmount)
-            $(abc).prepend(li);
-            // for (i = 0; i < close.length; i++) {
-            //   close[i].onclick = function () {
-            //     var div = this.parentElement;
-            //     div.style.display = "none";
-            //   }
-            // }
-        }
-
-    </script>
-
+</script>

@@ -5496,13 +5496,28 @@ button.list-group-item-danger.active:focus {
 .panel {
   margin: 15px 0px;
   background-color: #fff;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
-          box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+  /* border: 1px solid transparent; */
+  border-radius: 2px;
+  -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, .5);
+          box-shadow: 0 1px 10px rgba(0, 0, 0, .5);
 }
+.panel.addSavings{
+  margin:20px 0px 0px 0px;
+  border-bottom: 1px solid transparent;
+}
+.panel.removeSavings{
+  margin:0px 0px 12px 0px;
+
+}
+
 .panel-body {
   padding: 15px;
+}
+.panel-body.savingbuttons{
+  padding: 0px!important;
+  text-align: center;
+  vertical-align: middle;
+  
 }
 .panel-heading {
   padding: 10px 15px;
