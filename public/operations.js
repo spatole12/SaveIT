@@ -2,7 +2,9 @@
 function openForm() {
     document.getElementById("myForm").style.display = "inline-block";
 }
-
+handlebars.registerHelper('ifEquals', function(arg1, arg2, options) {
+    return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+  });
 function closeForm() {
     document.getElementById("myForm").style.display = "none";
 }
@@ -30,21 +32,33 @@ function deleteTab(ele_del){
   
         }
       })
-    //   console.log('after ajax')
-     
+}
+function checkvalue(gvalue){
 
-    //   ==============================================================
-    // $("button").on('click',(event)=>{
-    // event.preventDefault();
-    // $.delete('/goals',_id,(reponse)=>{
-    // console.log(response);
-    // });
-    
-    // });
+    if(gvalue=="Other")
+    {
+        document.getElementById("othergoal").style.display = "block";
+    }
+    else{
+        document.getElementById("othergoal").style.display = "none";
+    }
+}
+function EditTab(ele_edit){
 
-    //  =================================================================
-    // console.log(_id);
-    // let id = goalData.removegoal(_id);
+    let ele_id = ele_edit.value;
+   // return ele_id;
+    $.ajax({
+        type:'get',
+        url:'http://localhost:4000/goals/edit/'+ele_id,
+          success : function() {
+            console.log('success');
+            window.location.replace("http://localhost:4000/goals");
+         },
+        error : function() {
+          console.log('error');
+  
+        }
+      })
 }
 
 

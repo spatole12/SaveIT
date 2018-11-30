@@ -1,59 +1,79 @@
 <div class="bg-contact2" style="background-image: url('images/bg-01.png');">
-		<div class="container-contact2">
-			<div class="wrap-contact2">
-				<form class="contact2-form" method="POST" action="/goals">
-					<span class="contact2-form-title">
-						Add Goal
-					</span>
+	<div class="container-contact2">
+		<div class="wrap-contact2">
+			<form class="contact2-form" method="POST" action="/goals">
+				<span class="contact2-form-title">
+					Add Goal
+				</span>
+				<div class="wrap-input2">
+					<select class="input2" placeholder="Goal Name" name="gname" onchange='checkvalue(this.value)' style="border: 0px;color: #555555;"
+					 required>
+						<option value="House">House</option>
+						<option value="Laptop">Laptop</option>
+						<option value="Mobile">Mobile</option>
+						<option value="Marraige">Marraige</option>
+						<option value="Car">Car</option>
+						<option value="Bike">Bike</option>
+						<option value="Other">Other</option>
+					</select>
+					{{!-- <input class="input2" type="text" name="gname" placeholder="Goal Name" required> --}}
+					<span class="focus-input2"></span>
+				</div>
+				<div class="wrap-input2" id="othergoal" style='display:none'>
+					<input class="input2" type="text" name="gnameother" placeholder="Goal Name">
+					<span class="focus-input2"></span>
+				</div>
 
-					<div class="wrap-input2">
-						<input class="input2" type="text" name="gname" placeholder="Goal Name" required>
-						<span class="focus-input2"></span>
+				<div class="wrap-input2">
+					<input class="input2" type="number" min="0" name="gamount" placeholder="Goal Amount" required>
+					<span class="focus-input2"></span>
+				</div>
+
+				<div class="wrap-input2">
+					<input class="input2" type="number" placeholder="Goal Priority" name="gpriority" min="1" max="3" required>
+					<span class="focus-input2"></span>
+				</div>
+
+				<div class="wrap-input2">
+					<textarea class="input2" name="gdescription" placeholder="Description" required></textarea>
+					<span class="focus-input2"></span>
+				</div>
+
+				<div class="wrap-input2">
+					<input class="input2" type="number" name="gpercent" min="1" max="100" placeholder="Specific % to be allocated"
+					 required>
+					<span class="focus-input2"></span>
+				</div>
+
+				<div class="container-contact2-form-btn">
+					<div class="wrap-contact2-form-btn">
+						<div class="contact2-form-bgbtn"></div>
+						<button class="contact2-form-btn" type="submit">
+							Add Goal
+						</button>
 					</div>
+				</div>
 
-					<div class="wrap-input2">
-						<input class="input2" type="number"  min="0" name="gamount" placeholder="Goal Amount" required>
-						<span class="focus-input2"></span>
-					</div>
-
-					<div class="wrap-input2">
-						<input class="input2" type="number" placeholder="Goal Priority" name="gpriority" min="1" max="3" required>
-						<span class="focus-input2"></span>
-					</div>
-
-					<div class="wrap-input2">
-						<textarea class="input2" name="gdescription" placeholder="Description" required></textarea>
-						<span class="focus-input2"></span>
-					</div>
-
-					<div class="wrap-input2">
-						<input class="input2" type="number" name="gpercent" min="1" max="100" placeholder="Specific % to be allocated" required>
-						<span class="focus-input2"></span>
-					</div>
-
-					<div class="container-contact2-form-btn">
-						<div class="wrap-contact2-form-btn">
-							<div class="contact2-form-bgbtn"></div>
-							<button class="contact2-form-btn" type="submit">
-								Add Goal
-							</button>
-						</div>
-					</div>
-
-					<div class="container-contact2-form-btn">
-						<div class="wrap-contact2-form-btn">
-							<div class="contact3-form-bgbtn"></div>
-							<a href="https://localhost:7000/goals">
+				<div class="container-contact2-form-btn">
+					<div class="wrap-contact2-form-btn">
+						<div class="contact3-form-bgbtn"></div>
+						<a href="https://localhost:7000/goals">
 							<button class="contact2-form-btn" type="button">
 								Cancel
 							</button>
-							</a>
-						</div>
+						</a>
 					</div>
+				</div>
 
-				</form>
-			</div>
+			</form>
 		</div>
 	</div>
-	<script src="jquery/jquery-3.2.1.min.js"></script>
-	<script src="js/main.js"></script>
+</div>
+<script>
+ Handlebars.registerHelper('ifEquals', function(arg1, arg2, options) {
+            return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+        });;
+
+</script>
+<script src="jquery/jquery-3.2.1.min.js"></script>
+<script src="js/main.js"></script>

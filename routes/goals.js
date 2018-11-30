@@ -11,10 +11,18 @@ try {
 
   // });
   router.get("/add", async (req, res) => {
-    res.render("edit_remove/addwish",{stylecss: "addnedit.css", sitecss: "style.css"});
+    res.render("edit_remove/addwish", {
+      stylecss: "addnedit.css",
+      sitecss: "style.css"
+    });
   });
-  router.get("/edit", async (req, res) => {
-    res.render("edit_remove/Editwish",{stylecss: "addnedit.css", sitecss: "style.css"});
+  router.get("/edit/:id", async (req, res) => {
+    let getgoal = goalData.getgoalById(req.params.id);
+    res.render("edit_remove/Editwish", {
+      stylecss: "addnedit.css",
+      sitecss: "style.css",
+      goaldata: getgoal
+    });
   });
   router.get("/:id", async (req, res) => {
     const goal = await goalData.getgoalById(req.params.id);
@@ -55,7 +63,7 @@ try {
     //   goals: goalList
     // });
   });
-  
+
   router.post("/remove", async (req, res) => {
     let removalData = req.body;
     if (!removalData) {
@@ -66,11 +74,9 @@ try {
     }
     console.log(removalData);
     let removal_status = await goalData.emergencyRemoval(removalData.ramount);
-    if (removal_status == 1)
-    {
+    if (removal_status == 1) {
       res.redirect('/goals');
-    }
-    else{
+    } else {
       res.sendStatus(500);
     }
 
@@ -81,9 +87,13 @@ try {
     let errors = [];
     console.log(wishGoalData);
     if (!wishGoalData.gname) {
-      errors.push("No title provided");
+      errors.push("No Name provided");
     }
+    var gtype = gname;
+    if (wishGoalData.gname == "Other") {
+      wishGoalData.gname = wishGoalData.gnameother;
 
+    }
     // if (!wishGoalData.body) {
     //   errors.push("No body provided");
     // }
@@ -97,9 +107,13 @@ try {
     // console.log(errors.length);
     if (errors.length > 0) {
       console.log(errors);
-      res.render("edit_remove/addwish",{stylecss: "addnedit.css", sitecss: "style.css", errors: errors,
-      hasErrors: true,
-      goal: wishGoalData});
+      res.render("edit_remove/addwish", {
+        stylecss: "addnedit.css",
+        sitecss: "style.css",
+        errors: errors,
+        hasErrors: true,
+        goal: wishGoalData
+      });
       return;
     }
 
@@ -114,6 +128,7 @@ try {
         wishGoalData.gstatus,
         wishGoalData.gpriority,
         wishGoalData.gpercent,
+        gtype
 
       );
       console.log(newgoal);

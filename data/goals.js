@@ -36,7 +36,7 @@ let exportedMethods = {
         if (goal === null) throw "No goal found";
         return goal;
     },
-    async addgoal(title, description, tags, userId, gamount, gstatus, gpriority1,percent) {
+    async addgoal(title, description, tags, userId, gamount, gstatus, gpriority1,percent,gtype) {
         const goalCollection = await goals();
         
 		const userCollection = await users1();
@@ -161,6 +161,7 @@ let exportedMethods = {
             gstartDate: new Date(),
             pfulfilment : 0,
             gendDate: "",
+            gtype:gtype,
             _id: uuid.v4()
         };
         const insertInfo = await goalCollection.insertOne(newgoal);
