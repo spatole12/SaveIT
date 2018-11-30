@@ -975,23 +975,33 @@ input.input2 + .focus-input2::after {
 }
 
 .Car { 
-  background-image:linear-gradient(to bottom ,rgba(0, 255, 78, 0.4),rgba(0, 20, 255, 0.6)), url(./images/Car.jpg);
+  background-image:linear-gradient(to bottom ,rgba(0, 21, 169, 0.32),rgba(109, 68, 179, 0.63)), url(./images/Car.jpg);
   background-size: cover;
 }
 
 .Laptop { 
-  background-image: linear-gradient(to bottom ,rgba(0, 255, 78, 0.4),rgba(0, 20, 255, 0.6)), url(./images/Laptop.jpg);
+  background-image: linear-gradient(to bottom ,rgba(107, 122, 195, 0.4),rgba(0, 32, 255, 0.6)), url(./images/Laptop.jpg);
   background-size: cover;
 }
 
-.Home { 
+.House { 
   
   background-image:linear-gradient(to bottom ,rgba(0, 255, 78, 0.4),rgba(0, 20, 255, 0.6)), url(./images/Home.jpg);
   background-size: cover;
 }
 .Marraige { 
   
-  background-image:linear-gradient(to bottom ,rgba(0, 255, 78, 0.4),rgba(0, 20, 255, 0.6)), url(./images/Marraige.jpg);
+  background-image:linear-gradient(to bottom ,rgba(255, 0, 247, 0.29),rgba(0, 255, 228, 0.5)), url(./images/Marraige.jpg);
+  background-size: cover;
+}
+.Other { 
+  
+  background-image:linear-gradient(to bottom ,rgba(255, 0, 247, 0.29),rgba(0, 255, 228, 0.5)), url(./images/2.jpg);
+  background-size: cover;
+}
+.Marraige { 
+  
+  background-image:linear-gradient(to bottom ,rgba(255, 0, 247, 0.29),rgba(0, 255, 228, 0.5)), url(./images/Marraige.jpg);
   background-size: cover;
 }
 .misc { 

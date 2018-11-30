@@ -2,9 +2,6 @@
 function openForm() {
     document.getElementById("myForm").style.display = "inline-block";
 }
-handlebars.registerHelper('ifEquals', function(arg1, arg2, options) {
-    return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
-  });
 function closeForm() {
     document.getElementById("myForm").style.display = "none";
 }
