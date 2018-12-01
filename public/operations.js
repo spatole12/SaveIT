@@ -41,21 +41,28 @@ function checkvalue(gvalue){
     }
 }
 function EditTab(ele_edit){
-
+debugger;
     let ele_id = ele_edit.value;
    // return ele_id;
-    $.ajax({
-        type:'get',
-        url:'http://localhost:4000/goals/edit/'+ele_id,
-          success : function() {
-            console.log('success');
-            window.location.replace("http://localhost:4000/goals");
-         },
-        error : function() {
-          console.log('error');
+//    $.ajax({
+//     type: 'GET',
+//     url: 'http://localhost:4000/goals/edit/'+ele_id,
+//     success:function(data){
+//      console.log("success");
+//     }
+// });
+    // $.ajax({
+    //     type:'get',
+    //     url:'http://localhost:4000/goals/edit/'+ele_id,
+    //       success : function() {
+    //         console.log('success');
+    //         window.location.replace("http://localhost:4000/goals");
+    //      },
+    //     error : function() {
+    //       console.log('error');
   
-        }
-      })
+    //     }
+    //   })
 }
 
 

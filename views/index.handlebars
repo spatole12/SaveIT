@@ -166,9 +166,14 @@
                                 </form>
                             </div>
 
-                            <a href='goals/edit'><button value={{this._id}} class="btn btn-d btn-lg btn-block" style="background: none;color: white;text-shadow: 0px 0px 15px black;">
+                            {{!-- <a href='goals/edit'> --}}
+                            <form action="/goals/edit/{{this._id}}" method="get">
+                                <button value={{this._id}} class="btn btn-d btn-lg btn-block"
+                                    style="background: none;color: white;text-shadow: 0px 0px 15px black;">
                                     <div class="text-center" style="font-size: 1.3rem;font-weight: bold;">Edit</div>
-                                </button></a>
+                                </button>
+                            </form>
+                            {{!-- </a> --}}
                         </div>
                     </div>
                 </div>

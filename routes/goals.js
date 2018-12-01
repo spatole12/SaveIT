@@ -29,33 +29,38 @@ try {
 
     const goalList = await goalData.getAllgoals();
 
-     res.render('dashb/dashboard', {
+    res.render('dashb/dashboard', {
       sitecss: "site.css",
       stylecss: "style.css",
-      goals: goalList
+      goals: goalList,
+      dashboard:true
     });
   });
   router.get("/edit/:id", async (req, res) => {
-    let getgoal = goalData.getgoalById(req.params.id);
+
+    let getgoal = await goalData.getgoalById(req.params.id);
+    // res.json({message:"hi"});
+    debugger;
     res.render("edit_remove/Editwish", {
       stylecss: "addnedit.css",
       sitecss: "style.css",
       goaldata: getgoal
     });
+
   });
   router.get("/:id", async (req, res) => {
     const goal = await goalData.getgoalById(req.params.id);
-    res.render("goals/single", {
+    res.render("./index", {
       goal: goal
     });
   });
 
-  
+
 
   // router.get("/dashboard", async (req, res) => {
   //   // const goalList = await goalData.getAllgoals();
 
-  
+
 
   //   console.log("hiiiiiiii");
 
@@ -83,7 +88,8 @@ try {
     res.render('./index', {
       sitecss: "site.css",
       stylecss: "style.css",
-      goals: goalList
+      goals: goalList,
+      home: true
     });
     // res.render("goals/index", {
     //   goals: goalList
