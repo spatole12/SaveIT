@@ -11,30 +11,69 @@ try {
 
   // });
   router.get("/add", async (req, res) => {
-    res.render("edit_remove/addwish",{stylecss: "addnedit.css", sitecss: "style.css"});
-  });
-  router.get("/edit", async (req, res) => {
-    res.render("edit_remove/Editwish",{stylecss: "addnedit.css", sitecss: "style.css"});
-  });
-  router.get("/:id", async (req, res) => {
-    const goal = await goalData.getgoalById(req.params.id);
-    res.render("goals/single", {
-      goal: goal
+    res.render("edit_remove/addwish", {
+      stylecss: "addnedit.css",
+      sitecss: "style.css"
     });
   });
   router.get("/dashboard", async (req, res) => {
-    // const goalList = await goalData.getAllgoals();
+    // res.render("edit_remove/addwish", {
+    //   stylecss: "addnedit.css",
+    //   sitecss: "style.css"
+    // });
 
-    console.log(goalList.length);
-    res.render('./dashboard', {
+    //  res.json({message:"dd"});
+    // console.log(`${__dirname}\dashboard`);
+
+    //  res.json({message:"dd"});
+
+    const goalList = await goalData.getAllgoals();
+
+    res.render('dashb/dashboard', {
       sitecss: "site.css",
       stylecss: "style.css",
-      goals: goalList
+      goals: goalList,
+      dashboard:true
     });
-    // res.render("goals/index", {
-    //   goals: goalList
-    // });
   });
+  router.get("/edit/:id", async (req, res) => {
+
+    let getgoal = await goalData.getgoalById(req.params.id);
+    // res.json({message:"hi"});
+    debugger;
+    res.render("edit_remove/Editwish", {
+      stylecss: "addnedit.css",
+      sitecss: "style.css",
+      goaldata: getgoal
+    });
+
+  });
+  router.get("/:id", async (req, res) => {
+    const goal = await goalData.getgoalById(req.params.id);
+    res.render("./index", {
+      goal: goal
+    });
+  });
+
+
+
+  // router.get("/dashboard", async (req, res) => {
+  //   // const goalList = await goalData.getAllgoals();
+
+
+
+  //   console.log("hiiiiiiii");
+
+  //   res.json({message:"jhgjkj"});
+
+  //   // res.render('./dashboard', {
+  //   //   sitecss: "site.css",
+  //   //   stylecss: "style.css",
+  //   //   goals: goalList
+  //   // });
+  // });
+
+
   router.get("/tag/:tag", (req, res) => {
     goalData.getgoalsByTag(req.params.tag).then(goalList => {
       res.render("goals/index", {
@@ -49,7 +88,8 @@ try {
     res.render('./index', {
       sitecss: "site.css",
       stylecss: "style.css",
-      goals: goalList
+      goals: goalList,
+      home: true
     });
     // res.render("goals/index", {
     //   goals: goalList
@@ -66,11 +106,9 @@ try {
     }
     console.log(removalData);
     let removal_status = await goalData.emergencyRemoval(removalData.ramount);
-    if (removal_status == 1)
-    {
+    if (removal_status == 1) {
       res.redirect('/goals');
-    }
-    else{
+    } else {
       res.sendStatus(500);
     }
 
@@ -81,9 +119,13 @@ try {
     let errors = [];
     console.log(wishGoalData);
     if (!wishGoalData.gname) {
-      errors.push("No title provided");
+      errors.push("No Name provided");
     }
+    var gtype = gname;
+    if (wishGoalData.gname == "Other") {
+      wishGoalData.gname = wishGoalData.gnameother;
 
+    }
     // if (!wishGoalData.body) {
     //   errors.push("No body provided");
     // }
@@ -97,9 +139,13 @@ try {
     // console.log(errors.length);
     if (errors.length > 0) {
       console.log(errors);
-      res.render("edit_remove/addwish",{stylecss: "addnedit.css", sitecss: "style.css", errors: errors,
-      hasErrors: true,
-      goal: wishGoalData});
+      res.render("edit_remove/addwish", {
+        stylecss: "addnedit.css",
+        sitecss: "style.css",
+        errors: errors,
+        hasErrors: true,
+        goal: wishGoalData
+      });
       return;
     }
 
@@ -114,6 +160,7 @@ try {
         wishGoalData.gstatus,
         wishGoalData.gpriority,
         wishGoalData.gpercent,
+        gtype
 
       );
       console.log(newgoal);

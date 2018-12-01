@@ -2,7 +2,6 @@
 function openForm() {
     document.getElementById("myForm").style.display = "inline-block";
 }
-
 function closeForm() {
     document.getElementById("myForm").style.display = "none";
 }
@@ -30,21 +29,40 @@ function deleteTab(ele_del){
   
         }
       })
-    //   console.log('after ajax')
-     
+}
+function checkvalue(gvalue){
 
-    //   ==============================================================
-    // $("button").on('click',(event)=>{
-    // event.preventDefault();
-    // $.delete('/goals',_id,(reponse)=>{
-    // console.log(response);
-    // });
-    
-    // });
-
-    //  =================================================================
-    // console.log(_id);
-    // let id = goalData.removegoal(_id);
+    if(gvalue=="Other")
+    {
+        document.getElementById("othergoal").style.display = "block";
+    }
+    else{
+        document.getElementById("othergoal").style.display = "none";
+    }
+}
+function EditTab(ele_edit){
+debugger;
+    let ele_id = ele_edit.value;
+   // return ele_id;
+//    $.ajax({
+//     type: 'GET',
+//     url: 'http://localhost:4000/goals/edit/'+ele_id,
+//     success:function(data){
+//      console.log("success");
+//     }
+// });
+    // $.ajax({
+    //     type:'get',
+    //     url:'http://localhost:4000/goals/edit/'+ele_id,
+    //       success : function() {
+    //         console.log('success');
+    //         window.location.replace("http://localhost:4000/goals");
+    //      },
+    //     error : function() {
+    //       console.log('error');
+  
+    //     }
+    //   })
 }
 
 

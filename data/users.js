@@ -2,6 +2,7 @@ const mongoCollections = require("../config/mongoCollections");
 const users = mongoCollections.users;
 const goals = mongoCollections.goals;
 const uuid = require("node-uuid");
+const userId = "18293ea2-1a06-4c55-8fb3-4e1acf0ba484";
 
 let exportedMethods = {
   getAllUsers() {
@@ -103,91 +104,94 @@ let exportedMethods = {
   async addSavingsToGoals(savings) {
     console.log("===SP:In addSavings===");
     let amt1 = 0;
-    console.log("====SP:In distributeSavings=======");
-
-    //console.log("======"+typeof(saving_obj));
+    let amount = 0;
+    let first_prior_amt = 0;
     let goalCollection = await goals();
-    //let amt_asper_percent = {};
     let percent_allocation1 = await goalCollection.find({}).toArray();
-    /* if(new_priority < priority_1) */
-    //for(i=0; i < percent_allocation.length; i++)
-    console.log("percent_allocation1" + percent_allocation1);
     let priority_obj = {};
     let saving_obj = {};
-    for (let i = 0; i < percent_allocation1.length; i++) {
+      percent_allocation1.forEach(async function(percent_allocation){
       let userCollection = await users();
-      let percent_allocation = percent_allocation1[i];
       let id = percent_allocation["_id"];
       let gpriority = percent_allocation["gpriority"];
-      console.log("======SP:priority=====" + gpriority.toString());
-      let amount = percent_allocation["gpercent"] * savings / 100;
-      console.log(amount);
-      priority_obj[gpriority] = amount;
-      console.log("====prioityobj" + JSON.stringify(priority_obj));
-      //amt1 = total amt used from savings
-      amt1 += amount;
-      console.log(amt1);
+      console.log("====gpriority==="+gpriority);
+      if(gpriority == 1)
+      {
+       amount = percent_allocation["gpercent"] * savings / 100;
+      first_prior_amt = amount;
+      //priority_obj[gpriority] = amount;
+      //amt1 += amount;
+      }
+      else{
+        console.log("Inprioriry >1");
+       let rem_amt5 = savings - first_prior_amt;
+       console.log("rem_amt5"+rem_amt5);
+       amount = percent_allocation["gpercent"] * rem_amt5 / 100;
+       console.log("amount  "+amount);
+      // priority_obj[gpriority] = amount;
+      // amt1 += amount;
+      }
+      
       let updated_amt = amount + percent_allocation["gfulfilment"];
-      /* if(updated_amt <= percent_allocation["gfulfilment"])
-      { */
-      goalCollection.updateOne({ "_id": id }, { $set: { gfulfilment: updated_amt } });
+	  
+	  
+	  
+	   if(percent_allocation["gfulfilment"] == 0 )
+      {
+        console.log("In if 1");
       let pf = (updated_amt/percent_allocation["gamount"])*100;
-      goalCollection.updateOne({ "_id": id }, { $set: { gfulfilment: updated_amt,pfulfilment:pf } });
-
-      /*  }
-       else{
-         let amount_req_to_fulfill = percent_allocation["gamount"] - percent_allocation["gfulfilment"];
-         let new_updated_amt = percent_allocation["gfulfilment"] + amount_req_to_fulfill ;
-         goalCollection.updateOne({"_id":id},{$set:{gfulfilment:new_updated_amt}});
-
-         let excess_amt = updated_amt-amount_req_to_fulfill;
-         let misc_amount1 = percent_allocation["misc_amount"] + excess_amt;
-         userCollection.updateOne({"firstName":"Shivani"},{$set:{"misc_amount" : misc_amount1}});
-       } */
+      goalCollection.updateOne({ "_id": id }, { $set: { gfulfilment: updated_amt,pfulfilment:pf }});
+      priority_obj[gpriority] = updated_amt;
+      amt1 += Number(updated_amt);
+      }
+      else if(updated_amt <= percent_allocation["gamount"])
+      {
+        console.log("In if 2");
+      let pf = (updated_amt/percent_allocation["gamount"])*100;
+      goalCollection.updateOne({ "_id": id }, { $set: { gfulfilment: updated_amt,pfulfilment:pf }}); 
+      priority_obj[gpriority] = updated_amt;
+      amt1 += Number(updated_amt);
+      }
+      else if(updated_amt > percent_allocation["gamount"])
+      {
+        console.log("In if 3");
+      let misc_amount1 = Number(updated_amt) -  Number(percent_allocation["gamount"]);
+      userCollection.updateOne({"_id":userId},{$set:{"misc_amount" : misc_amount1}});
+      goalCollection.updateOne({ "_id": id }, { $set: { gfulfilment: percent_allocation["gamount"],pfulfilment:100 }});
+      priority_obj[gpriority] = percent_allocation["gamount"];
+      amt1 += Number(percent_allocation["gamount"]);
+      }
+      
+       let user_obj1 = await userCollection.find({}).toArray();
+       let obj = user_obj1[0];
+       let per1_amt = obj["percent_amount"];
+       let savings1 = per1_amt["savings"];
+       let new_savings = Number(savings1) +Number(savings);
       saving_obj = {
         "amt1": amt1,
-        "savings": savings,
+        "savings": new_savings,
         "priority_n_amt": priority_obj
       };
-      console.log("Saving Obj " + JSON.stringify(saving_obj));
-      // let userCollection =  await users();
-      // userCollection.updateOne({"firstName":"Shivani"},{$set:{misc_amount : 8}});
-      userCollection.updateOne({ "firstName": "Shivani" }, { $set: { "percent_amount": saving_obj } });
-      console.log("Done!!!");
+
+      userCollection.updateOne({ "_id": userId }, { $set: { "percent_amount": saving_obj } });
 
       let distribute_savings_arr = await userCollection.find({}).toArray();
       let arr_obj = distribute_savings_arr[0];
-      console.log("arr obj" + JSON.stringify(arr_obj));
+     
       let percent_amount_assign = arr_obj["percent_amount"];
       let new_misc_amt = percent_amount_assign["savings"] - percent_amount_assign["amt1"];
-      console.log("lalala" + arr_obj["misc_amount"]);
-      console.log(new_misc_amt);
+    
       let misc = arr_obj["misc_amount"];
-      console.log("misc======" + misc);
-      let misc_amount2 = misc + new_misc_amt;
-      console.log("miscamt" + misc_amount2);
-      //let userCollection =  await users();
-      userCollection.updateOne({ "firstName": "Shivani" }, { $set: { "misc_amount": misc_amount2 } });
+  
+      let misc_amount2 = Number(misc) + Number(new_misc_amt);
+   
+      userCollection.updateOne({ "_id": userId }, { $set: { "misc_amount": misc_amount2 } });
       console.log("===SP:aft distri===");
 
-    }
-    this.computeProgress();
+    });
     return 1;
   },
-  async computeProgress() {
-    console.log("Yohoooooo!!");
-    const goalCollection = await goals();
-    let goals_arr = await goalCollection.find({}).toArray();
-    for (let j = 0; j < goals_arr.length; j) {
-      let goal_obj = goals_arr[j];
-      let goal_id = goal_obj["_id"];
-      console.log(goal_obj["gfulfilment"]);
-      console.log(goal_obj["gamount"]);
-      let pfulfilment1 = (goal_obj["gfulfilment"] / goal_obj["gamount"]) * 100;
-      await goalCollection.updateOne({ "_id": goal_id }, { $set: { pfulfilment: pfulfilment1 } });
-
-    }
-  },
+  
 
 };
 

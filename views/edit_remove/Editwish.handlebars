@@ -1,58 +1,58 @@
+<div class="bg-contact2" style="background-image: url('images/bg-01.png');">
+	<div class="container-contact2">
+		<div class="wrap-contact2">
+			<form class="contact2-form">
+				<span class="contact2-form-title">
+					Edit Goal
+				</span>
 
-	<div class="bg-contact2" style="background-image: url('images/bg-01.png');">
-		<div class="container-contact2">
-			<div class="wrap-contact2">
-				<form class="contact2-form">
-					<span class="contact2-form-title">
-						Edit Goal
-					</span>
+				<div class="wrap-input2">
+					<input class="input2" type="text" name="gname" placeholder="Goal Name" value="{{goaldata.gname}}" required>
+					<span class="focus-input2"></span>
+				</div>
 
-					<div class="wrap-input2">
-						<input class="input2" type="text" name="gname" placeholder="Goal Name" required>
-						<span class="focus-input2"></span>
+				<div class="wrap-input2">
+					<input class="input2" type="number" name="gamount" min="0" placeholder="Goal Amount" required>
+					<span class="focus-input2"></span>
+				</div>
+
+				<div class="wrap-input2" required>
+					<input class="input2" type="number" name="gpriority" min="1" max="3" placeholder="Goal Priority" required>
+					<span class="focus-input2"></span>
+				</div>
+
+				<div class="wrap-input2" required>
+					<textarea class="input2" name="gdescription" placeholder="Description" required></textarea>
+					<span class="focus-input2"></span>
+				</div>
+
+				<div class="wrap-input2" required>
+					<input class="input2" type="number" name="gpercent" min="1" max="100" placeholder="Specific % to be allocated"
+					 required>
+					<span class="focus-input2"></span>
+				</div>
+
+				<div class="container-contact2-form-btn">
+					<div class="wrap-contact2-form-btn">
+						<div class="contact2-form-bgbtn"></div>
+						<button class="contact2-form-btn" type="submit">
+							Edit Goal
+						</button>
 					</div>
+				</div>
 
-					<div class="wrap-input2">
-						<input class="input2" type="number" name="gamount" min="0" placeholder="Goal Amount" required>
-						<span class="focus-input2"></span>
+				<div class="container-contact2-form-btn">
+					<div class="wrap-contact2-form-btn">
+						<div class="contact3-form-bgbtn"></div>
+						<button class="contact2-form-btn" type="submit">
+							Delete Goal
+						</button>
 					</div>
+				</div>
 
-					<div class="wrap-input2" required>
-						<input class="input2" type="number" name="gpriority" min="1" max="3" placeholder="Goal Priority" required>
-						<span class="focus-input2"></span>
-					</div>
-
-					<div class="wrap-input2" required>
-						<textarea class="input2" name="gdescription" placeholder="Description" required></textarea>
-						<span class="focus-input2"></span>
-					</div>
-
-					<div class="wrap-input2" required>
-						<input class="input2" type="number" name="gpercent" min="1" max="100" placeholder="Specific % to be allocated" required>
-						<span class="focus-input2"></span>
-					</div>
-
-					<div class="container-contact2-form-btn">
-						<div class="wrap-contact2-form-btn">
-							<div class="contact2-form-bgbtn"></div>
-							<button class="contact2-form-btn" type="submit">
-								Edit Goal
-							</button>
-						</div>
-                    </div>
-                    
-                    <div class="container-contact2-form-btn">
-                            <div class="wrap-contact2-form-btn">
-                                <div class="contact3-form-bgbtn"></div>
-                                <button class="contact2-form-btn" type="submit">
-                                    Delete Goal
-                                </button>
-                            </div>
-                        </div>
-
-				</form>
-			</div>
+			</form>
 		</div>
 	</div>
-	<script src="jquery/jquery-3.2.1.min.js"></script>
-	<script src="js/main.js"></script>
+</div>
+{{!-- <script src="jquery/jquery-3.2.1.min.js"></script>
+<script src="js/main.js"></script> --}}
