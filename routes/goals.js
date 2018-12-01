@@ -95,7 +95,7 @@ try {
     //   goals: goalList
     // });
   });
-  
+
   router.post("/remove", async (req, res) => {
     let removalData = req.body;
     if (!removalData) {

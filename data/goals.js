@@ -54,6 +54,7 @@ let exportedMethods = {
     },
     async addgoal(title, description, tags, userId, gamount, gstatus, gpriority1, percent, gtype) {
         const goalCollection = await goals();
+
         
 		const userCollection = await users1();
 		let misc_amount = await userCollection.find({"_id":userId},{"misc_amount":1}).toArray();
@@ -134,6 +135,136 @@ let exportedMethods = {
 			userCollection.updateOne({"_id":userId},{$set:{misc_amount:misc_amt1}});
 		}
         
+
+
+        const userCollection = await users1();
+        let misc_amount = await userCollection.find({
+            "firstName": "Shivani"
+        }, {
+            "misc_amount": 1
+        }).toArray();
+        // let percent_amount_obj = await userCollection.find({"firstName":"Shivani"},{"percent_amount":1});
+        let percent_amount_obj = await userCollection.find().toArray();
+        //if(!percent_amount_obj){
+        console.log("======SP:===========" + percent_amount_obj);
+        //}   
+        let per = percent_amount_obj[0];
+        console.log("======SP:per========" + per);
+        let percent_amount = per["percent_amount"];
+        console.log("======SP:percent_amount========" + percent_amount);
+        let priority_n_amt = percent_amount["priority_n_amt"];
+        let first_priority_amt = priority_n_amt["1"];
+        let new_goal_amt = percent_amount["savings"] * percent / 100;
+        console.log("=====SP:new_goal_amt=====" + new_goal_amt);
+        if (new_goal_amt > first_priority_amt) {
+            //set as first priority_n_amt and set other's new priorities in goal collection
+
+            gpriority = 1;
+            let records = await goalCollection.find();
+            records.forEach(function (doc) {
+                console.log("doc.gprioritybefore===================================================" + doc.gpriority);
+                // doc.gpriority2 == doc.gpriority+1;
+                let name = doc.gname;
+                let priority = Number(doc.gpriority) + 1;
+                console.log("===kjsdfkj======" + priority);
+                goalCollection.updateOne({
+                    gname: name
+                }, {
+                    $set: {
+                        gpriority: priority
+                    }
+                });
+            });
+            //update priorities in userCollection			
+            if (new_goal_amt > misc_amount["misc_amount"]) {
+                //reset all savings
+                priority_n_amt[1] = new_goal_amt;
+                gfulfilment = new_goal_amt;
+                //await goalCollection.updateOne({"gpriority":1},{$set:{gfulfilment:new_goal_amt}});
+                let amt_rem = misc_amount["misc_amount"] - new_goal_amt;
+                //distribute the rem amount into the rem priorities
+                let users_records = userCollection.find();
+                users_records.forEach(function (doc) {
+                    let total_amt_otherprio = 0;
+                    let percent_amount1 = doc.percent_amount;
+                    //let misc_amt1 = doc.misc_amount;
+                    let priority_n_amt1 = percent_amount["priority_n_amt"];
+                    let keys = Object.keys(priority_n_amt1);
+                    for (var i = 0; i < keys.length; i++) {
+
+                        if (keys[i] > 1) {
+                            let new_amount = (priority_n_amt1[keys[i]] / percent_amount1["savings"]) * amt_rem;
+                            priority_n_amt1[keys[i]] = new_amount;
+                            total_amt_otherprio += new_amount;
+                            goalCollection.updateOne({
+                                "gpriority": keys[i]
+                            }, {
+                                $set: {
+                                    gfulfilment: new_amount
+                                }
+                            });
+                        }
+                        let misc_amt1 = amt_rem - total_amt_otherprio;
+                        percent_amount1["priority_n_amt"] = priority_n_amt1;
+                        userCollection.updateOne({
+                            "firstName": "Shivani Patole"
+                        }, {
+                            $set: {
+                                percent_amount: percent_amount1,
+                                misc_amount: misc_amt1
+                            }
+                        });
+
+
+                    }
+                });
+
+            } else {
+                let misc_amt1 = misc_amount["misc_amount"] - new_goal_amt;
+                userCollection.updateOne({
+                    "firstName": "Shivani Patole"
+                }, {
+                    $set: {
+                        misc_amount: misc_amt1
+                    }
+                });
+            }
+        } else {
+            //assign next priority and assign gfulfilment the amount
+            const priority_string = await goalCollection.findOne({
+                gpriority: gpriority1
+            });
+            console.log("priority=================================================");
+            if (priority_string === null) {
+                console.log("in if========");
+                gpriority = gpriority1;
+            } else {
+                console.log("in else========");
+                gpriority = gpriority1;
+                let records = await goalCollection.find();
+                records.forEach(function (doc) {
+                    console.log("doc.gprioritybefore===================================================" + doc.gpriority);
+                    // doc.gpriority2 == doc.gpriority+1;
+
+                    let name = doc.gname;
+                    let priority = Number(doc.gpriority) + 1;
+                    console.log("===kjsdfkj======" + priority);
+                    goalCollection.updateOne({
+                        gname: name
+                    }, {
+                        $set: {
+                            gpriority: priority
+                        }
+                    });
+                    console.log("doc.gpriorityafter===================================================" + doc.gpriority);
+                });
+            }
+            //gpriority = gpriority1;
+            gfulfilment = new_goal_amt;
+        }
+
+        //let percent_fulfilment = (gfulfilment/gamount)*100;
+
         const userThatgoaled = await users.getUserById(userId);
         let newgoal = {
             gname: title,
@@ -147,7 +278,7 @@ let exportedMethods = {
             gstatus: gstatus,
             gfulfilment: 0,
             gpriority: gpriority,
-            gpercent : percent,
+            gpercent: percent,
             gcreatedOn: new Date(),
             gmodifiedBy: {
                 id: userId,
@@ -155,7 +286,7 @@ let exportedMethods = {
             },
             gmodifiedOn: new Date(),
             gstartDate: new Date(),
-            pfulfilment : 0,
+            pfulfilment: 0,
             gendDate: "",
             gtype: gtype,
             _id: uuid.v4()
@@ -231,8 +362,8 @@ let exportedMethods = {
 		}
         return 1;
     },
-   
-    
+
+
     removegoal(id) {
         return goals().then(goalCollection => {
             return goalCollection.removeOne({
