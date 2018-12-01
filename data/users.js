@@ -132,7 +132,7 @@ let exportedMethods = {
       // amt1 += amount;
       }
       
-      let updated_amt = amount + percent_allocation["gfulfilment"];
+      let updated_amt = Number(amount) + Number(percent_allocation["gfulfilment"]);
 	  
 	  
 	  
@@ -148,6 +148,7 @@ let exportedMethods = {
       {
         console.log("In if 2");
       let pf = (updated_amt/percent_allocation["gamount"])*100;
+      console.log("pf"+pf);
       goalCollection.updateOne({ "_id": id }, { $set: { gfulfilment: updated_amt,pfulfilment:pf }}); 
       priority_obj[gpriority] = updated_amt;
       amt1 += Number(updated_amt);

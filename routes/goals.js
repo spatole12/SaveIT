@@ -121,7 +121,7 @@ try {
     if (!wishGoalData.gname) {
       errors.push("No Name provided");
     }
-    var gtype = gname;
+    var gtype = wishGoalData.gname;
     if (wishGoalData.gname == "Other") {
       wishGoalData.gname = wishGoalData.gnameother;
 
