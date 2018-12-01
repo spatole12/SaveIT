@@ -16,6 +16,25 @@ try {
       sitecss: "style.css"
     });
   });
+  router.get("/dashboard", async (req, res) => {
+    // res.render("edit_remove/addwish", {
+    //   stylecss: "addnedit.css",
+    //   sitecss: "style.css"
+    // });
+
+    //  res.json({message:"dd"});
+    // console.log(`${__dirname}\dashboard`);
+
+    //  res.json({message:"dd"});
+
+    const goalList = await goalData.getAllgoals();
+
+     res.render('dashb/dashboard', {
+      sitecss: "site.css",
+      stylecss: "style.css",
+      goals: goalList
+    });
+  });
   router.get("/edit/:id", async (req, res) => {
     let getgoal = goalData.getgoalById(req.params.id);
     res.render("edit_remove/Editwish", {
@@ -30,19 +49,26 @@ try {
       goal: goal
     });
   });
-  router.get("/dashboard", async (req, res) => {
-    // const goalList = await goalData.getAllgoals();
 
-    console.log(goalList.length);
-    res.render('./dashboard', {
-      sitecss: "site.css",
-      stylecss: "style.css",
-      goals: goalList
-    });
-    // res.render("goals/index", {
-    //   goals: goalList
-    // });
-  });
+  
+
+  // router.get("/dashboard", async (req, res) => {
+  //   // const goalList = await goalData.getAllgoals();
+
+  
+
+  //   console.log("hiiiiiiii");
+
+  //   res.json({message:"jhgjkj"});
+
+  //   // res.render('./dashboard', {
+  //   //   sitecss: "site.css",
+  //   //   stylecss: "style.css",
+  //   //   goals: goalList
+  //   // });
+  // });
+
+
   router.get("/tag/:tag", (req, res) => {
     goalData.getgoalsByTag(req.params.tag).then(goalList => {
       res.render("goals/index", {

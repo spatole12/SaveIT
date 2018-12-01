@@ -1076,3 +1076,65 @@ input.input2 + .focus-input2::after {
 .ch-item:hover .ch-info p {
 	opacity: 1;
 }
+
+/* THIS IS CHARTS
+
+*/
+
+
+/* ======================================================
+charts
+========================================================= */
+.myContainer{
+  display: inline-block;
+width: 0px;
+min-height: 200px;
+background-color: rgb(255, 255, 255);
+  height: auto;
+  align-content: center;
+}
+.contain{
+  width: 700px;
+  height: 400px;
+  padding: 5px;
+  border: 2px solid rgb(0, 0, 0);
+  margin: 45px;
+  float: left;
+}
+.contain2{
+  width: 400px;
+  height: 400px;
+  padding: 5px;
+  border: 2px solid rgb(0, 0, 0);
+  margin: 45px;
+  float: left;
+}
+/* .tbl, th, td{
+  margin: 130px;
+  border: 1px solid black;
+} */
+.marginAlign{
+  margin: 35px;
+}
+#tableStyle {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 50%;
+}
+
+#tableStyle td, #tableStyle th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#tableStyle tr:nth-child(even){background-color: #f2f2f2;}
+
+#tableStyle tr:hover {background-color: #ddd;}
+
+#tableStyle th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
