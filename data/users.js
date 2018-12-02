@@ -2,7 +2,7 @@ const mongoCollections = require("../config/mongoCollections");
 const users = mongoCollections.users;
 const goals = mongoCollections.goals;
 const uuid = require("node-uuid");
-const userId = "18293ea2-1a06-4c55-8fb3-4e1acf0ba484";
+const userId = "a5bb2072-652b-411d-908c-3029b365550a";
 
 let exportedMethods = {
   getAllUsers() {
@@ -135,14 +135,26 @@ let exportedMethods = {
       let updated_amt = Number(amount) + Number(percent_allocation["gfulfilment"]);
 	  
 	  
-	  
+	   console.log("=====updated_amt:):):)======="+updated_amt);
 	   if(percent_allocation["gfulfilment"] == 0 )
       {
-        console.log("In if 1");
-      let pf = (updated_amt/percent_allocation["gamount"])*100;
-      goalCollection.updateOne({ "_id": id }, { $set: { gfulfilment: updated_amt,pfulfilment:pf }});
-      priority_obj[gpriority] = updated_amt;
-      amt1 += Number(updated_amt);
+          if(updated_amt >percent_allocation["gamount"] )
+          {
+            let misc_amount_1 = Number(updated_amt) -  Number(percent_allocation["gamount"]);
+            userCollection.updateOne({"_id":userId},{$set:{"misc_amount" : misc_amount_1}});
+            goalCollection.updateOne({ "_id": id }, { $set: { gfulfilment: percent_allocation["gamount"],pfulfilment:100 }});
+            priority_obj[gpriority] = percent_allocation["gamount"];
+            amt1 += Number(percent_allocation["gamount"]);
+          }
+          else{
+          console.log("In if 1");
+          console.log("=====updated_amt:):)======="+updated_amt);
+          let pf = (updated_amt/percent_allocation["gamount"])*100;
+          console.log("======pfulfilment======"+pf);
+          goalCollection.updateOne({ "_id": id }, { $set: { gfulfilment: updated_amt,pfulfilment:pf }});
+          priority_obj[gpriority] = updated_amt;
+          amt1 += Number(updated_amt);
+          }
       }
       else if(updated_amt <= percent_allocation["gamount"])
       {
@@ -173,11 +185,13 @@ let exportedMethods = {
         "savings": new_savings,
         "priority_n_amt": priority_obj
       };
+      console.log("saving_obj======"+JSON.stringify(saving_obj));
 
       userCollection.updateOne({ "_id": userId }, { $set: { "percent_amount": saving_obj } });
 
       let distribute_savings_arr = await userCollection.find({}).toArray();
       let arr_obj = distribute_savings_arr[0];
+      console.log("====arr_obj====="+JSON.stringify(arr_obj));
      
       let percent_amount_assign = arr_obj["percent_amount"];
       let new_misc_amt = percent_amount_assign["savings"] - percent_amount_assign["amt1"];
