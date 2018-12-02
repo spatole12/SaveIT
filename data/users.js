@@ -223,6 +223,7 @@ let exportedMethods = {
         "savings": new_savings,
         "priority_n_amt": priority_obj
       };
+      console.log("saving_obj======"+JSON.stringify(saving_obj));
 
       userCollection.updateOne({
         "_id": userId

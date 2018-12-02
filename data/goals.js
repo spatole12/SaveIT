@@ -81,6 +81,8 @@ let exportedMethods = {
 			if(new_goal_amt > misc_amount["misc_amount"])
 			{
 
+                console.log("in hieeeee");
+
 				//reset all savings
 				priority_n_amt[1] = new_goal_amt;
 				gfulfilment = new_goal_amt;
@@ -102,6 +104,7 @@ let exportedMethods = {
 					}	
                     let misc_amt1 = amt_rem - total_amt_otherprio;
                     let misc_amt2 = Number(misc_amt1) +  Number(misc_amount["misc_amount"]);
+                    console.log("=====misc_amt2======="+misc_amt2);
                     percent_amount1["priority_n_amt"] = priority_n_amt1 ;
 				    userCollection.updateOne({"_id":userId},{$set:{percent_amount:percent_amount1,misc_amount:misc_amt2}});
 					
@@ -112,11 +115,13 @@ let exportedMethods = {
 			}
 			else
 			{
-				let misc_amt1 = misc_amount["misc_amount"] - new_goal_amt;
+                console.log("========In yohooo=======");
+				let misc_amt1 = Number(misc_amount["misc_amount"]) - Number(new_goal_amt);
 				 userCollection.updateOne({"_id":userId},{$set:{misc_amount:misc_amt1}});
 			}
 		}
 		else{
+            console.log("======:):):)========")
 			//assign next priority and assign gfulfilment the amount
 			 const priority_string = await goalCollection.findOne({gpriority:gpriority1});
 			if(priority_string === null)
@@ -133,12 +138,14 @@ let exportedMethods = {
 				});
 			}
             gfulfilment = new_goal_amt;
-            let misc_amt1 = misc_amount["misc_amount"] - new_goal_amt;
-            if(!isNaN(misc_amt1)){
-                userCollection.updateOne({"_id":userId},{$set:{misc_amount:misc_amt1}});
+            let misc_amt1 = Number(misc_amount["misc_amount"]) - Number(new_goal_amt);
+            if(!(isNaN(misc_amt1)))
+            {
+            userCollection.updateOne({"_id":userId},{$set:{misc_amount:misc_amt1}});
             }
 		}
         
+        console.log("=======================================================");
         const userThatgoaled = await users.getUserById(userId);
         let newgoal = {
             gname: title,
