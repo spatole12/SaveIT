@@ -1004,6 +1004,15 @@ input.input2 + .focus-input2::after {
   background-image:linear-gradient(to bottom ,rgba(255, 0, 247, 0.29),rgba(0, 255, 228, 0.5)), url(./images/Marraige.jpg);
   background-size: cover;
 }
+.Mobile { 
+  
+  background-image:linear-gradient(to bottom ,rgba(255, 0, 247, 0.29),rgba(0, 255, 228, 0.5)), url(./images/Mobile.jpg);
+  background-size: cover;
+}
+.Bike { 
+  background-image:linear-gradient(to bottom ,rgba(255, 0, 247, 0.29),rgba(0, 255, 228, 0.5)), url(./images/Bike.jpg);
+  background-size: cover;
+}
 .misc { 
   
   background-image:linear-gradient(to bottom ,rgba(255, 212, 0, 0.4),rgba(0, 20, 255, 0.6)), url(./images/misc.jpg);

@@ -3,7 +3,7 @@ const router = express.Router();
 const data = require("../data");
 const goalData = data.goals;
 const userData = data.users;
-const userId = "18293ea2-1a06-4c55-8fb3-4e1acf0ba484";
+const userId = "559a0ce7-b1a5-449c-8992-29af85ccbacc";
 try {
   // router.get("/new", (req, res) => {
   //   console.log("hi");
@@ -11,9 +11,11 @@ try {
 
   // });
   router.get("/add", async (req, res) => {
+    const goalList = await goalData.getAllgoals();
     res.render("edit_remove/addwish", {
       stylecss: "addnedit.css",
-      sitecss: "style.css"
+      sitecss: "style.css",
+      priorities: goalList.length + 1
     });
   });
   router.get("/dashboard", async (req, res) => {
@@ -33,7 +35,7 @@ try {
       sitecss: "site.css",
       stylecss: "style.css",
       goals: goalList,
-      dashboard:true
+      dashboard: true
     });
   });
   router.get("/edit/:id", async (req, res) => {

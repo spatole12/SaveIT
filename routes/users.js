@@ -76,7 +76,7 @@ try {
     }
     console.log(userInfo);
 
-    userData.addUser(userInfo.firstName, userInfo.lastName).then(
+    userData.addUser(userInfo.firstName, userInfo.lastName,userInfo.email).then(
       newUser => {
         res.json(newUser);
       },

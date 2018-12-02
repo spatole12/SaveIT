@@ -11,9 +11,9 @@ const constructorMethod = app => {
   //   res.render('./index',{})
   // });
 
-  // app.use("*", (req, res) => {
-  //   res.redirect("/goals");
-  // });
+  app.use("*", (req, res) => {
+    res.redirect("/goals");
+  });
 };
 
 module.exports = constructorMethod;

@@ -3,7 +3,7 @@ const goals = mongoCollections.goals;
 const users1 = mongoCollections.users;
 const users = require("./users");
 const uuid = require("node-uuid");
-const userId = "18293ea2-1a06-4c55-8fb3-4e1acf0ba484";
+const userId = "559a0ce7-b1a5-449c-8992-29af85ccbacc";
 
 let exportedMethods = {
     async getAllgoals() {
@@ -58,9 +58,11 @@ let exportedMethods = {
         
 		const userCollection = await users1();
 		let misc_amount = await userCollection.find({"_id":userId},{"misc_amount":1}).toArray();
-        let user_obj = await userCollection.find().toArray();
-        let per = user_obj[0];
+        let user_obj = await userCollection.findOne({"_id":userId});
+        let per = user_obj;
+        // console.log("===SP:per=="+JSON.stringify(per));
         let percent_amount = per["percent_amount"];
+        console.log(per);
 		let priority_n_amt = percent_amount["priority_n_amt"];
 		let first_priority_amt = priority_n_amt["1"];
         let new_goal_amt = percent_amount["savings"] * percent/100; 
@@ -132,7 +134,9 @@ let exportedMethods = {
 			}
             gfulfilment = new_goal_amt;
             let misc_amt1 = misc_amount["misc_amount"] - new_goal_amt;
-			userCollection.updateOne({"_id":userId},{$set:{misc_amount:misc_amt1}});
+            if(!isNaN(misc_amt1)){
+                userCollection.updateOne({"_id":userId},{$set:{misc_amount:misc_amt1}});
+            }
 		}
         
         const userThatgoaled = await users.getUserById(userId);
@@ -170,8 +174,8 @@ let exportedMethods = {
         const goalCollection = await goals();
         let goals_arr = await goalCollection.find({}).toArray();
 		const userCollection = await users1();
-        let users_arr_ = await userCollection.find({}).toArray();
-        let users_arr = users_arr_[0];
+        let users_arr_ = await userCollection.findOne({"_id":id});
+        let users_arr = users_arr_;
         console.log("misc_amount"+users_arr["misc_amount"]);
 		if(amt_to_remove < Number(users_arr["misc_amount"]))
 		{
