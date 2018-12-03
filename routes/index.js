@@ -1,6 +1,5 @@
 const goalRoutes = require("./goals");
 const userRoutes = require("./users");
-// const edit_add = require("./editAdd");
 const path = require("path");
 
 const constructorMethod = app => {
@@ -12,7 +11,7 @@ const constructorMethod = app => {
   // });
 
   app.use("*", (req, res) => {
-    res.redirect("/goals");
+    res.sendFile(path.resolve("static/login.html"));
   });
 };
 

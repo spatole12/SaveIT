@@ -23,13 +23,19 @@
     <div class="bloc bgc-white l-bloc">
         <div class="container bloc-lg">
             <div class="row">
-                <button onclick="addRow();">Add Row</button>
+                {{!-- <button onclick="addRow();">Add Row</button> --}}
                 <div class="marginAlign" style="width:100%">
                     <table id="tableStyle" style="width:100%">
                         <tr>
                             <th>Amount</th>
                             <th>Savings</th>
                         </tr>
+                        {{#each transactions}}<tr>
+                            <td>{{this.tamount}}</td>
+                            <td>{{this.tAddedOn}}</td>
+                        </tr>
+
+                        {{/each}}
                     </table>
                 </div>
             </div>

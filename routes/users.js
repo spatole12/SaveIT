@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const data = require("../data");
 const userData = data.users;
+const metaData = data.metadata;
 try {
   router.get("/:id", (req, res) => {
     userData
@@ -28,32 +29,33 @@ try {
     );
   });
 
- router.post("/saving",async(req,res)=>{
-   let savingInfo = req.body; 
-   if (!savingInfo) {
-    res.status(400).json({
-      error: "You must provide savings"
-    });
-    return;
-  }
-  console.log(savingInfo);
-  let distri_status = await userData.addSavingsToGoals(savingInfo.amount)
-  if (distri_status == 1)
-  {
-    res.redirect('/goals');
-  }
-  else{
-    res.sendStatus(500);
-  }
-  
+  router.post("/saving", async (req, res) => {
+    let savingInfo = req.body;
+    if (!savingInfo) {
+      res.status(400).json({
+        error: "You must provide savings"
+      });
+      return;
+    }
+    console.log(savingInfo);
 
- });
+    
+    let distri_status = await userData.addSavingsToGoals(savingInfo.amount)
+    if (distri_status == 1) {
+      let mdata = await metaData.addTransaction(Number(savingInfo.amount));
+      res.redirect('/goals');
+    } else {
+      res.sendStatus(500);
+    }
 
 
+  });
 
-  router.post("/", (req, res) => {
+
+
+  router.post("/", async (req, res) => {
     let userInfo = req.body;
-
+    console.log(userInfo);
     if (!userInfo) {
       res.status(400).json({
         error: "You must provide data to create a user"
@@ -61,29 +63,41 @@ try {
       return;
     }
 
-    if (!userInfo.firstName) {
+    if (!userInfo.username) {
       res.status(400).json({
-        error: "You must provide a first name"
+        error: "You must provide a user name"
       });
       return;
     }
 
-    if (!userInfo.lastName) {
+    if (!userInfo.email) {
       res.status(400).json({
-        error: "You must provide a last name"
+        error: "You must provide a email"
       });
       return;
     }
-    console.log(userInfo);
 
-    userData.addUser(userInfo.firstName, userInfo.lastName,userInfo.email).then(
-      newUser => {
-        res.json(newUser);
-      },
-      () => {
-        res.sendStatus(500);
+    if (userInfo.username == "administrator") {
+      var a = await userData.getUserByusername(userInfo.username);
+      console.log(a);
+      if (a) {
+        res.redirect("/goals");
+      } else {
+        console.log("hi");
+        userData.addUser(userInfo.username, userInfo.username, userInfo.email).then(
+          newUser => {
+            console.log(newUser)
+            res.redirect("http://localhost:4000/goals");
+          },
+          () => {
+            res.sendStatus(500);
+          }
+        );
       }
-    );
+    } else {
+      res.redirect("http://localhost:4000/");
+    }
+
   });
 
   router.put("/:id", (req, res) => {

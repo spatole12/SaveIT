@@ -3,7 +3,8 @@ const router = express.Router();
 const data = require("../data");
 const goalData = data.goals;
 const userData = data.users;
-const userId = "559a0ce7-b1a5-449c-8992-29af85ccbacc";
+const metaData = data.metadata;
+
 try {
   // router.get("/new", (req, res) => {
   //   console.log("hi");
@@ -12,6 +13,7 @@ try {
   // });
   router.get("/add", async (req, res) => {
     const goalList = await goalData.getAllgoals();
+
     res.render("edit_remove/addwish", {
       stylecss: "addnedit.css",
       sitecss: "style.css",
@@ -30,11 +32,13 @@ try {
     //  res.json({message:"dd"});
 
     const goalList = await goalData.getAllgoals();
+    const metaList = await metaData.getAllTransactions();
 
     res.render('dashb/dashboard', {
       sitecss: "site.css",
       stylecss: "style.css",
       goals: goalList,
+      transactions: metaList,
       dashboard: true
     });
   });
@@ -86,12 +90,28 @@ try {
 
   router.get("/", async (req, res) => {
     const goalList = await goalData.getAllgoals();
-    console.log(goalList.length);
+    const metaList = await metaData.getAllTransactions();
+    var total = 0;
+    var last_transaction = 0;
+    if (metaList.length > 0) {
+      var currentdate = metaList[0].tAddedOn;
+      total = metaList[0].tamount;
+      last_transaction = metaList[0].tamount;
+      for (var i = 1; i < metaList.length; i++) {
+        total = total + metaList[i].tamount;
+        if (+metaList[i].tAddedOn >= +currentdate) {
+          currentdate = metaList[i].tAddedOn;
+          last_transaction = metaList[i].tamount;
+        }
+      }
+    }
     res.render('./index', {
       sitecss: "site.css",
       stylecss: "style.css",
       goals: goalList,
-      home: true
+      home: true,
+      totalsavings: total,
+      last_transaction: last_transaction
     });
     // res.render("goals/index", {
     //   goals: goalList
@@ -109,6 +129,7 @@ try {
     console.log(removalData);
     let removal_status = await goalData.emergencyRemoval(removalData.ramount);
     if (removal_status == 1) {
+      let mdata = await metaData.addTransaction(Number(-removalData.ramount));
       res.redirect('/goals');
     } else {
       res.sendStatus(500);
@@ -135,10 +156,6 @@ try {
       errors.push("No body provided");
     }
 
-    // if (!wishGoalData.userId) {
-    // errors.push("No goaler selected");
-    // }
-    // console.log(errors.length);
     if (errors.length > 0) {
       console.log(errors);
       res.render("edit_remove/addwish", {
@@ -152,6 +169,10 @@ try {
     }
 
     try {
+      const usersList = await userData.getAllUsers();
+      console.log(usersList);
+      const userId = usersList.find(x => x.firstName === "administrator")._id;
+
       const newgoal = await goalData.addgoal(
         wishGoalData.gname,
         // wishGoalData."most important",
@@ -165,9 +186,6 @@ try {
         gtype
 
       );
-      console.log(newgoal);
-      // userData.addgoalToUser(userId, newgoal._id, newgoal.gname);
-
       console.log(newgoal);
       // res.status(200).json(newgoal);
       // res.render('./index',{goals:goalData.getAllgoals()});

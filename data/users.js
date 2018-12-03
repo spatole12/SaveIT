@@ -2,7 +2,7 @@ const mongoCollections = require("../config/mongoCollections");
 const users = mongoCollections.users;
 const goals = mongoCollections.goals;
 const uuid = require("node-uuid");
-const userId = "559a0ce7-b1a5-449c-8992-29af85ccbacc";
+
 var nodemailer = require('nodemailer');
 
 let exportedMethods = {
@@ -13,9 +13,22 @@ let exportedMethods = {
   },
   // This is a fun new syntax that was brought forth in ES6, where we can define
   // methods on an object with this shorthand!
+  getUserByusername(username) {
+    return users().then(userCollection => {
+      return userCollection.findOne({
+        firstName: username
+      }).then(user => {
+        if (!user) return false;
+        else
+          return true;
+      });
+    });
+  },
+
   getUserById(id) {
     return users().then(userCollection => {
       return userCollection.findOne({
+
         _id: id
       }).then(user => {
         if (!user) throw "User not found";
@@ -109,6 +122,14 @@ let exportedMethods = {
   },
   async addSavingsToGoals(savings) {
     console.log("===SP:In addSavings===");
+    var userCollection1 = await users();
+    // console.log("userCollection1:"+JSON.stringify(userCollection1));
+    var userIS = await userCollection1.findOne({
+      "firstName": "administrator"
+    });
+    var userID = JSON.stringify(userIS);
+    var userID = JSON.parse(userID);
+    var userId = userID._id;
     let amt1 = 0;
     let amount = 0;
     let first_prior_amt = 0;
@@ -175,6 +196,7 @@ let exportedMethods = {
         let goalobj = await goalCollection.findOne({
           "_id": id
         });
+        console.log(userId)
         let user_obj = await userCollection.findOne({
           "_id": userId
         });
@@ -223,7 +245,7 @@ let exportedMethods = {
         "savings": new_savings,
         "priority_n_amt": priority_obj
       };
-      console.log("saving_obj======"+JSON.stringify(saving_obj));
+      console.log("saving_obj======" + JSON.stringify(saving_obj));
 
       userCollection.updateOne({
         "_id": userId
