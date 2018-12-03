@@ -30,7 +30,8 @@
 				</div>
 
 				<div class="wrap-input2">
-					<input class="input2" type="number" placeholder="Goal Priority" name="gpriority" min="1" max="{{priorities}}" required>
+					<input class="input2" type="number" placeholder="Goal Priority" name="gpriority" min="1" max="{{priorities}}"
+					 required>
 					<span class="focus-input2"></span>
 				</div>
 
@@ -53,26 +54,26 @@
 						</button>
 					</div>
 				</div>
+				<a href="http://localhost:4000/goals">
+					<div class="container-contact2-form-btn">
+						<div class="wrap-contact2-form-btn">
+							<div class="contact3-form-bgbtn"></div>
 
-				<div class="container-contact2-form-btn">
-					<div class="wrap-contact2-form-btn">
-						<div class="contact3-form-bgbtn"></div>
-						<a href="https://localhost:7000/goals">
 							<button class="contact2-form-btn" type="button">
 								Cancel
 							</button>
-						</a>
-					</div>
-				</div>
 
+						</div>
+					</div>
+				</a>
 			</form>
 		</div>
 	</div>
 </div>
 <script>
- Handlebars.registerHelper('ifEquals', function(arg1, arg2, options) {
-            return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
-        });;
+	Handlebars.registerHelper('ifEquals', function (arg1, arg2, options) {
+		return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+	});;
 
 </script>
 <script src="jquery/jquery-3.2.1.min.js"></script>

@@ -44,26 +44,6 @@ function checkvalue(gvalue){
 function EditTab(ele_edit){
 debugger;
     let ele_id = ele_edit.value;
-   // return ele_id;
-//    $.ajax({
-//     type: 'GET',
-//     url: 'http://localhost:4000/goals/edit/'+ele_id,
-//     success:function(data){
-//      console.log("success");
-//     }
-// });
-    // $.ajax({
-    //     type:'get',
-    //     url:'http://localhost:4000/goals/edit/'+ele_id,
-    //       success : function() {
-    //         console.log('success');
-    //         window.location.replace("http://localhost:4000/goals");
-    //      },
-    //     error : function() {
-    //       console.log('error');
-  
-    //     }
-    //   })
 }
 
 
@@ -95,36 +75,9 @@ list.addEventListener('click', function (ev) {
 
 // Create a new list item when clicking on the "Add" button
 function newElement() {
-    // var li = document.createElement("li");
-    // var l_strName = String(document.getElementsByName("goalText")) ;
-    // console.log(l_strName);
-    // var l_numInitialAmount = Number(document.getElementsByName("goalamountText")) ;
-    // var l_numMinimumAmount = Number(document.getElementsByName("goalinitialText")) ;
     console.log(document.getElementById("myForm4"));
     var li = "<div class='col-sm-3'><div class='goalList'><li>" + document.getElementsById("myForm4").value + "</li><div class='progress'><div class='progress-bar' role='progressbar' aria-valuenow='70' aria-valuemin='0' aria-valuemax='100' style='width:20%'> 20%</div></div></div></div>";
-    // var inputValue = document.getElementById("myInput").value;
-    // var t = document.createTextNode(inputValue);
-    // li.appendChild(t);
-    // if (inputValue === '') {
-    // alert("You must write something!");
-    // } else {
-    // document.getElementById("myUL1").appendChild(li);
-    // }
-    // document.getElementById("myInput").value = "";
-
-    // var span = document.createElement("SPAN");
-    // var txt = document.createTextNode("\u00D7");
-    // span.className = "close";
-    // span.appendChild(txt);
-    // li.appendChild(span);
-    // if(l_strName&&l_numInitialAmount&&l_numMinimumAmount)
     $(abc).prepend(li);
-    // for (i = 0; i < close.length; i++) {
-    //   close[i].onclick = function () {
-    //     var div = this.parentElement;
-    //     div.style.display = "none";
-    //   }
-    // }
 }
 
 //==============================================================================================
