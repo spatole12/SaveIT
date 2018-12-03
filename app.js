@@ -8,7 +8,7 @@ const exphbs = require("express-handlebars");
 
 app.use("/public", static);
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+// app.use(bodyParser.urlencoded());
 app.use(bodyParser.urlencoded({
   extended: false
 }));
