@@ -39,7 +39,19 @@ try {
       stylecss: "style.css",
       goals: goalList,
       transactions: metaList,
-      dashboard: true
+      dashboard: true,
+      colorlist: ['#003f5c',
+        '#ffa600',
+        '#2f4b7c',
+        '#ff7c43',
+        '#665191',
+        '#f95d6a',
+        '#a05195',
+        '#d45087',
+        '#f0b8b8',
+        '#e67f83',
+        '#de425b'
+      ]
     });
   });
   router.get("/edit/:id", async (req, res) => {

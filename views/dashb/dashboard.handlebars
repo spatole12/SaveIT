@@ -128,62 +128,58 @@
 
     let goals1 = [];
     var goalpercent = [];
+    var colorList = [];
     {{#each goals}} goals1.push('{{this.gname}}'); {{/each}}
-            {{#each goals}} goalpercent.push({{ this.gpercent }}); {{/each}}
-
-                let yearPieChart = new Chart(pieChartt, {
-                    type: 'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
-                    data: {
-                        labels: goals1,
-                        datasets: [{
-                            label: 'Savings',
-                            data: [
-                                617594,
-                                617594,
-                                617594,
-                                617594,
-                                617594
-                            ],
-                            //backgroundColor:'green',
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.6)',
-                                'rgba(54, 162, 235, 0.6)',
-                                'rgba(255, 206, 86, 0.6)',
-                                'rgba(255, 106, 21, 0.6)',
-                                'rgba(255, 45, 86, 0.6)'
-                            ],
-                            borderWidth: 1,
-                            borderColor: '#777',
-                            hoverBorderWidth: 3,
-                            hoverBorderColor: '#000'
-                        }]
-                    },
-                    options: {
-                        title: {
-                            display: true,
-                            text: 'Savings Distribution',
-                            fontSize: 15
-                        },
-                        // legend:{
-                        //   display:true,
-                        //   position:'right',
-                        //   labels:{
-                        //     fontColor:'#000'
-                        //   }
-                        // },
-                        layout: {
-                            padding: {
-                                left: 5,
-                                right: 0,
-                                bottom: 0,
-                                top: 0
+            {{#each goals}} goalpercent.push({{this.gfulfilment}}); {{/each}}
+                    console.log(goals1);
+                    {{#each colorlist}} colorList.push('{{this}}'); {{/each}}
+                            console.log(colorList);
+                            var colors = [];
+                            for (var i = 0; i < goals1.length; i++) {
+                                colors.push(colorList[i]);
                             }
-                        },
-                        tooltips: {
-                            enabled: true
-                        }
-                    }
-                });
+
+                            let yearPieChart = new Chart(pieChartt, {
+                                type: 'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+                                data: {
+                                    labels: goals1,
+                                    datasets: [{
+                                        label: 'Savings',
+                                        data: goalpercent,
+                                        //backgroundColor:'green',
+                                        backgroundColor: colors,
+                                        borderWidth: 1,
+                                        borderColor: '#777',
+                                        hoverBorderWidth: 3,
+                                        hoverBorderColor: '#000'
+                                    }]
+                                },
+                                options: {
+                                    title: {
+                                        display: true,
+                                        text: 'Savings Distribution',
+                                        fontSize: 15
+                                    },
+                                    // legend:{
+                                    //   display:true,
+                                    //   position:'right',
+                                    //   labels:{
+                                    //     fontColor:'#000'
+                                    //   }
+                                    // },
+                                    layout: {
+                                        padding: {
+                                            left: 5,
+                                            right: 0,
+                                            bottom: 0,
+                                            top: 0
+                                        }
+                                    },
+                                    tooltips: {
+                                        enabled: true
+                                    }
+                                }
+                            });
 </script>
 <script>
 
