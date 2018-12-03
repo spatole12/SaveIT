@@ -183,7 +183,7 @@ try {
     try {
       const usersList = await userData.getAllUsers();
       console.log(usersList);
-      const userId = usersList.find(x => x.firstName === "administrator")._id;
+      const userId = usersList.find(x => x.firstName == "administrator")._id;
 
       const newgoal = await goalData.addgoal(
         wishGoalData.gname,

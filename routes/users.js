@@ -77,14 +77,14 @@ try {
       return;
     }
 
-    if (userInfo.username == "administrator") {
+    if (userInfo.username.toLowerCase() == "administrator") {
       var a = await userData.getUserByusername(userInfo.username);
       console.log(a);
       if (a) {
         res.redirect("/goals");
       } else {
         console.log("hi");
-        userData.addUser(userInfo.username, userInfo.username, userInfo.email).then(
+        userData.addUser(userInfo.username.toLowerCase(), userInfo.username, userInfo.email).then(
           newUser => {
             console.log(newUser)
             res.redirect("http://localhost:4000/goals");
