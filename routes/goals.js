@@ -20,6 +20,14 @@ try {
       priorities: goalList.length + 1
     });
   });
+  router.get("/aboutus", async (req, res) => {
+
+    res.render('dashb/aboutus', {
+      stylecss: "addnedit.css",
+      sitecss: "style.css",
+      aboutus: true
+    });
+  });
   router.get("/dashboard", async (req, res) => {
     // res.render("edit_remove/addwish", {
     //   stylecss: "addnedit.css",
