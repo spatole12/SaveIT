@@ -18,22 +18,15 @@
                                     <button class="button addsavingsbtn" onclick="openForm()"><span>Add Savings</span></button>
                                     <div class="form-popup" id="myForm">
                                         <form action="/users/saving" class="form-container" method="POST">
-                                            <button onclick="closeForm()" class='emergencyremoval pull-right' style="    align-items: center;
-    background: #d20000f7 !important;
-    border: 0px !important;
-    width: 28px !important;
-    font-size: 1.8rem;
-    color: white;
-    border-radius: 0px;
-    margin: -10px -10px;"><span>X</span></button>
+                                            <button type="reset" onclick="closeForm()" class='emergencyremoval pull-right' style="align-items: center;background: #d20000f7 !important;border: 0px !important;width: 28px !important;font-size: 1.8rem;color: white;border-radius: 0px;margin: -10px -10px;"><span>X</span></button>
                                             <div class="row">
                                                 <label for="amount" class="labelfont"><b>Enter your Savings amount</b></label>
-                                                <input type="number" placeholder="Amount" name="amount"   required>
+                                                <input type="number" placeholder="Amount" name="amount" required>
                                             </div>
 
                                             <div class="row foot">
                                                 <button type="submit" class="btn">Save</button>
-                                                <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                                                <button type="button" class="btn cancel" onclick="closeForm()" type="reset">Close</button>
                                             </div>
 
                                         </form>
@@ -47,23 +40,16 @@
                                             Removal</span></button>
                                     <div class="form-popup" id="myForm2">
                                         <form action="/goals/remove" method="POST" class="form-container">
-                                            <button onclick="closeForm2()" class=' pull-right' style="  align-items: center;
-    background: #d20000f7 !important;
-    border: 0px !important;
-    width: 28px !important;
-    font-size: 1.8rem;
-    color: white;
-    border-radius: 0px;
-    margin: -10px -10px;"><span>x</span></button>
+                                            <button type="reset" onclick="closeForm2()" class=' pull-right' style="  align-items: center;background: #d20000f7 !important;    border: 0px !important;    width: 28px !important;    font-size: 1.8rem;    color: white;    border-radius: 0px;    margin: -10px -10px;"><span>x</span></button>
                                             <div class="row">
                                                 <label for="ramount" class="labelfont"><b>Enter amount to be removed</b></label>
-                                                <input type="number" id="emergencyRem" placeholder="Amount" name="ramount" max="{{totalsavings}}"
-                                                    required>
+                                                <input type="number" id="emergencyRem" placeholder="Amount" name="ramount"
+                                                    max="{{totalsavings}}" required>
                                             </div>
 
                                             <div class="row foot">
                                                 <button type="submit" class="btn">Remove</button>
-                                                <button type="button" class="btn cancel" onclick="closeForm2()">Close</button>
+                                                <button type="button" class="btn cancel" onclick="closeForm2()" type="reset">Close</button>
                                             </div>
                                         </form>
                                     </div>
@@ -107,38 +93,6 @@
     <div class="bloc bgc-white l-bloc" id="bloc-2">
         <div class="container bloc-sm">
             <div class="row">
-                {{!-- <ul class="ch-grid">
-                    <li>
-                        <div class="ch-item ch-img-1">
-                            <div class="ch-info">
-                                <h3>Use what you have</h3>
-                                <p><a href='goals/add'>Add Goal</a></p>
-                            </div>
-                        </div>
-                    </li>
-                    {{#each goals}}
-                    <li>
-                        <div class="ch-item ch-img-2">
-                            <div class="ch-info">
-                                <h3>{{this.gname}}</h3>
-                                <div class='progress'>
-                                    <div class='progress-bar' role='progressbar' aria-valuenow='70' aria-valuemin='0'
-                                        aria-valuemax='100' style='width:{{this.pfulfilment}}%'> {{this.pfulfilment}}</div>
-                                </div>
-                                <a href='goals/edit'>Edit</a>
-                            </div>
-                        </div>
-                    </li>
-                    {{/each}}
-                    <li>
-                        <div class="ch-item ch-img-3">
-                            <div class="ch-info">
-                                <h3>Miscellaneous</h3>
-                                <p>by Charlie Wagers <a href="http://drbl.in/ekhp">View on Dribbble</a></p>
-                            </div>
-                        </div>
-                    </li>
-                </ul> --}}
                 <div class="col-sm-3">
                     <div class="panel" style="height:82%">
                         <div class="panel-body" style="height:100%">
@@ -189,10 +143,6 @@
                                     <label for="edition" class="labelfont"><b>Miscellaneous</b></label>
                                 </form>
                             </div>
-                            {{!-- <button onclick="openForm6()" value={{this._id}} class="btn btn-d btn-lg btn-block">
-                                <div class="text-center">Edit</div>
-                            </button> --}}
-
                         </div>
                     </div>
                 </div>
@@ -287,36 +237,8 @@
 
     // Create a new list item when clicking on the "Add" button
     function newElement() {
-        // var li = document.createElement("li");
-        // var l_strName = String(document.getElementsByName("goalText")) ;
-        // console.log(l_strName);
-        // var l_numInitialAmount = Number(document.getElementsByName("goalamountText")) ;
-        // var l_numMinimumAmount = Number(document.getElementsByName("goalinitialText")) ;
         console.log(document.getElementById("myForm4"));
         var li = "<div class='col-sm-3'><div class='goalList'><li>" + document.getElementsById("myForm4").value + "</li><div class='progress'><div class='progress-bar' role='progressbar' aria-valuenow='70' aria-valuemin='0' aria-valuemax='100' style='width:20%'> 20%</div></div></div></div>";
-        // var inputValue = document.getElementById("myInput").value;
-        // var t = document.createTextNode(inputValue);
-        // li.appendChild(t);
-        // if (inputValue === '') {
-        // alert("You must write something!");
-        // } else {
-        // document.getElementById("myUL1").appendChild(li);
-        // }
-        // document.getElementById("myInput").value = "";
-
-        // var span = document.createElement("SPAN");
-        // var txt = document.createTextNode("\u00D7");
-        // span.className = "close";
-        // span.appendChild(txt);
-        // li.appendChild(span);
-        // if(l_strName&&l_numInitialAmount&&l_numMinimumAmount)
-        $(abc).prepend(li);
-        // for (i = 0; i < close.length; i++) {
-        //   close[i].onclick = function () {
-        //     var div = this.parentElement;
-        //     div.style.display = "none";
-        //   }
-        // }
     }
 
 </script>

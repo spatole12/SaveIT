@@ -10,6 +10,7 @@ function openForm2() {
 }
 
 function closeForm2() {
+    document.getElementById("emergencyRem").value = 0;
     document.getElementById("myForm2").style.display = "none";
 }
 
