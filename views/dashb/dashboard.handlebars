@@ -50,7 +50,9 @@
 <script>
     let myChartt = document.getElementById('myChart').getContext('2d');
     console.log("Chart1");
-
+    let decsavings = [];
+    var sumdec =0;
+     {{#each goals}} decsavings.push({{this.tamount}});sumdec=sumdec+Number({{this.tamount}}); {{/each}}
     let yearChart = new Chart(myChartt, {
         type: 'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
         data: {
@@ -58,18 +60,18 @@
             datasets: [{
                 label: 'Savings',
                 data: [
-                    617594,
-                    617594,
-                    617594,
-                    617594,
-                    617594,
-                    617594,
-                    617594,
-                    617594,
-                    617594,
-                    617594,
-                    617594,
-                    617594
+                    1200,
+                    145,
+                    154,
+                    1376,
+                    346,
+                    2000,
+                    2345,
+                    1236,
+                    1224,
+                    1223,
+                    122,
+                    sumdec
                 ],
                 //backgroundColor:'green',
                 backgroundColor: [

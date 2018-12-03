@@ -37,7 +37,6 @@ try {
       });
       return;
     }
-    console.log(savingInfo);
 
     
     let distri_status = await userData.addSavingsToGoals(savingInfo.amount)
@@ -55,7 +54,6 @@ try {
 
   router.post("/", async (req, res) => {
     let userInfo = req.body;
-    console.log(userInfo);
     if (!userInfo) {
       res.status(400).json({
         error: "You must provide data to create a user"
@@ -79,11 +77,9 @@ try {
 
     if (userInfo.username.toLowerCase() == "administrator") {
       var a = await userData.getUserByusername(userInfo.username);
-      console.log(a);
       if (a) {
         res.redirect("/goals");
       } else {
-        console.log("hi");
         userData.addUser(userInfo.username.toLowerCase(), userInfo.username, userInfo.email).then(
           newUser => {
             console.log(newUser)

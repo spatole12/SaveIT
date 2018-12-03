@@ -134,149 +134,182 @@ let exportedMethods = {
     let amount = 0;
     let first_prior_amt = 0;
     let goalCollection = await goals();
-    let percent_allocation1 = await goalCollection.find({}).toArray();
-    let priority_obj = {};
+    let allgoals = await goalCollection.find({}).toArray();
+    let priority_obj = [];
     let saving_obj = {};
-    percent_allocation1.forEach(async function (percent_allocation) {
+    if (allgoals.length == 0) {
+
       let userCollection = await users();
-      let id = percent_allocation["_id"];
-      let gpriority = percent_allocation["gpriority"];
-      console.log("====gpriority===" + gpriority);
-      if (gpriority == 1) {
-        amount = percent_allocation["gpercent"] * savings / 100;
-        first_prior_amt = amount;
-        //priority_obj[gpriority] = amount;
-        //amt1 += amount;
-      } else {
-        console.log("Inprioriry >1");
-        let rem_amt5 = savings - first_prior_amt;
-        console.log("rem_amt5" + rem_amt5);
-        amount = percent_allocation["gpercent"] * rem_amt5 / 100;
-        console.log("amount  " + amount);
-        // priority_obj[gpriority] = amount;
-        // amt1 += amount;
+      let udata = await userCollection.findOne({
+        "firstName": "administrator"
+      });
+      udata = JSON.stringify(udata);
+      udata = JSON.parse(udata);
+      var misc = udata.misc_amount;
+      var save = udata.percent_amount.savings;
+      if (isNaN(misc)) {
+        misc = 0;
       }
+      userCollection.updateOne({
+        "_id": userId
+      }, {
+        $set: {
+          "misc_amount": Number(misc) + Number(savings),
+          "percent_amount": {
+            "priority_n_amt": {},
+            "amt1": 0,
+            "savings": Number(save) + Number(savings)
+          }
+        }
+      });
+    } else {
+      console.log("here");
+      for (var k = 0; k < allgoals.length; k++) {
+        let userCollection = await users();
+        let id = allgoals[k]["_id"];
+        let gpriority = allgoals[k]["gpriority"];
+        if (gpriority == 1) {
+          amount = (allgoals[k]["gpercent"] * savings) / 100;
+          first_prior_amt = amount;
+          //priority_obj[gpriority] = amount;
+          //amt1 += amount;
+        } else {
+          let rem_amt5 = savings - first_prior_amt;
+          amount = (allgoals[k]["gpercent"] * rem_amt5) / 100;
+          // priority_obj[gpriority] = amount;
+          // amt1 += amount;
+        }
+        let updated_amt = Number(amount) + Number(allgoals[k]["gfulfilment"]);
+        if (updated_amt <= allgoals[k]["gamount"]) {
+          let pf = (updated_amt / allgoals[k]["gamount"]) * 100;
+          goalCollection.updateOne({
+            "_id": id
+          }, {
+            $set: {
+              gfulfilment: updated_amt,
+              pfulfilment: pf
+            }
+          });
+          priority_obj[gpriority] = updated_amt;
+          amt1 += Number(updated_amt);
+        } else if (updated_amt > allgoals[k]["gamount"] && !(allgoals[k]["gamount"] == allgoals[k]["gfulfilment"])) {
 
-      let updated_amt = Number(amount) + Number(percent_allocation["gfulfilment"]);
-      console.log("=====updated_amount=====" + updated_amt);
-      if (updated_amt <= percent_allocation["gamount"]) {
-        console.log("In if 2");
-        let pf = (updated_amt / percent_allocation["gamount"]) * 100;
-        console.log("pf" + pf);
-        goalCollection.updateOne({
-          "_id": id
-        }, {
-          $set: {
-            gfulfilment: updated_amt,
-            pfulfilment: pf
-          }
-        });
-        priority_obj[gpriority] = updated_amt;
-        amt1 += Number(updated_amt);
-      } else if (updated_amt > percent_allocation["gamount"] && !(percent_allocation["gamount"] == percent_allocation["gfulfilment"])) {
-        console.log("In if 3");
-        let misc_amount1 = Number(updated_amt) - Number(percent_allocation["gamount"]);
-        userCollection.updateOne({
+          let userCollection = await users();
+          let udata = await userCollection.findOne({
+            "firstName": "administrator"
+          });
+          udata = JSON.stringify(udata);
+          udata = JSON.parse(udata);
+          var misc1 = udata.misc_amount;
+          let misc_amount1 = Number(updated_amt) - Number(allgoals[k]["gamount"]);
+          userCollection.updateOne({
+            "_id": userId
+          }, {
+            $set: {
+              "misc_amount": misc1 + misc_amount1
+            }
+          });
+          goalCollection.updateOne({
+            "_id": id
+          }, {
+            $set: {
+              gfulfilment: allgoals[k]["gamount"],
+              pfulfilment: 100
+            }
+          });
+          priority_obj[gpriority] = allgoals[k]["gamount"];
+          amt1 += Number(allgoals[k]["gamount"]);
+          let goalobj = await goalCollection.findOne({
+            "_id": id
+          });
+          let user_obj = await userCollection.findOne({
+            "_id": userId
+          });
+          let per = user_obj;
+          var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+              user: 'shreesh.chavan@gmail.com',
+              pass: 'shree2009'
+            }
+          });
+          var mailOptions = {
+            from: 'shreesh.chavan@gmail.com',
+            to: per.email,
+            subject: 'Your Goal ' + goalobj.gname + ' is accomplished',
+            text: 'Congratulations! Your have enough savings to accomplish your goal: ' + goalobj.gname + '.'
+          };
+
+          transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+              console.log(error);
+            } else {
+              console.log('Email sent: ' + info.response);
+            }
+          });
+        } else {
+          let userCollection = await users();
+          let udata = await userCollection.findOne({
+            "firstName": "administrator"
+          });
+          udata = JSON.stringify(udata);
+          udata = JSON.parse(udata);
+          var misc1 = udata.misc_amount;
+          let misc_amount1 = Number(updated_amt) - Number(allgoals[k]["gamount"]);
+          userCollection.updateOne({
+            "_id": userId
+          }, {
+            $set: {
+              "misc_amount": misc1 + misc_amount1
+            }
+          });
+        }
+        let user_obj1 = await userCollection.findOne({
           "_id": userId
-        }, {
-          $set: {
-            "misc_amount": misc_amount1
-          }
         });
-        goalCollection.updateOne({
-          "_id": id
-        }, {
-          $set: {
-            gfulfilment: percent_allocation["gamount"],
-            pfulfilment: 100
-          }
-        });
-        priority_obj[gpriority] = percent_allocation["gamount"];
-        amt1 += Number(percent_allocation["gamount"]);
-        let goalobj = await goalCollection.findOne({
-          "_id": id
-        });
-        console.log(userId)
-        let user_obj = await userCollection.findOne({
-          "_id": userId
-        });
-        let per = user_obj;
-        var transporter = nodemailer.createTransport({
-          service: 'gmail',
-          auth: {
-            user: 'shreesh.chavan@gmail.com',
-            pass: 'shree2009'
-          }
-        });
-        console.log(per);
-        var mailOptions = {
-          from: 'shreesh.chavan@gmail.com',
-          to: per.email,
-          subject: 'Your Goal ' + goalobj.gname + ' is accomplished',
-          text: 'Congratulations! Your have enough savings to accomplish your goal: ' + goalobj.gname + '.'
+        let obj = user_obj1;
+        let per1_amt = obj["percent_amount"];
+        let savings1 = per1_amt["savings"];
+        let new_savings = Number(savings1) + Number(savings);
+        saving_obj = {
+          "amt1": amt1,
+          "savings": new_savings,
+          "priority_n_amt": priority_obj
         };
-
-        transporter.sendMail(mailOptions, function (error, info) {
-          if (error) {
-            console.log(error);
-          } else {
-            console.log('Email sent: ' + info.response);
-          }
-        });
-      } else {
-        let misc_amount1 = Number(updated_amt) - Number(percent_allocation["gamount"]);
+        console.log(saving_obj);
         userCollection.updateOne({
           "_id": userId
         }, {
           $set: {
-            "misc_amount": misc_amount1
+            "percent_amount": saving_obj
           }
         });
+
+        let arr_obj = await userCollection.findOne({
+          "_id": userId
+        });
+        //  = distribute_savings_arr[0];
+
+        let percent_amount_assign = arr_obj["percent_amount"];
+        let new_misc_amt = percent_amount_assign["savings"] - percent_amount_assign["amt1"];
+
+        let misc = arr_obj["misc_amount"];
+
+        let misc_amount2 = Number(misc) + Number(new_misc_amt);
+
+        userCollection.updateOne({
+          "_id": userId
+        }, {
+          $set: {
+            "misc_amount": new_misc_amt
+          }
+        });
+
+
       }
-      let user_obj1 = await userCollection.findOne({
-        "_id": userId
-      });
-      let obj = user_obj1;
-      let per1_amt = obj["percent_amount"];
-      let savings1 = per1_amt["savings"];
-      let new_savings = Number(savings1) + Number(savings);
-      saving_obj = {
-        "amt1": amt1,
-        "savings": new_savings,
-        "priority_n_amt": priority_obj
-      };
-      console.log("saving_obj======" + JSON.stringify(saving_obj));
+      // allgoals.forEach(async function (allgoals[k]) {});
+    }
 
-      userCollection.updateOne({
-        "_id": userId
-      }, {
-        $set: {
-          "percent_amount": saving_obj
-        }
-      });
-
-      let arr_obj = await userCollection.findOne({
-        "_id": userId
-      });
-      //  = distribute_savings_arr[0];
-
-      let percent_amount_assign = arr_obj["percent_amount"];
-      let new_misc_amt = percent_amount_assign["savings"] - percent_amount_assign["amt1"];
-
-      let misc = arr_obj["misc_amount"];
-
-      let misc_amount2 = Number(misc) + Number(new_misc_amt);
-
-      userCollection.updateOne({
-        "_id": userId
-      }, {
-        $set: {
-          "misc_amount": misc_amount2
-        }
-      });
-      console.log("===SP:aft distri===");
-
-    });
     return 1;
   },
 

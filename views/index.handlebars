@@ -28,7 +28,7 @@
     margin: -10px -10px;"><span>X</span></button>
                                             <div class="row">
                                                 <label for="amount" class="labelfont"><b>Enter your Savings amount</b></label>
-                                                <input type="number" placeholder="Amount" name="amount" required>
+                                                <input type="number" placeholder="Amount" name="amount"   required>
                                             </div>
 
                                             <div class="row foot">
@@ -57,7 +57,7 @@
     margin: -10px -10px;"><span>x</span></button>
                                             <div class="row">
                                                 <label for="ramount" class="labelfont"><b>Enter amount to be removed</b></label>
-                                                <input type="number" id="emergencyRem" placeholder="Amount" name="ramount"
+                                                <input type="number" id="emergencyRem" placeholder="Amount" name="ramount" max="{{totalsavings}}"
                                                     required>
                                             </div>
 
@@ -183,6 +183,7 @@
                     <div class="panel misc" style="height:82%;border-radius:20%; ">
                         <div class="panel-body" style="height:100%">
                             <div class="goalFont">Miscellaneous</div>
+                            <div class="goalFont">${{userdata.misc_amount}}</div>
                             <div class="form-popup5" id="myForm6">
                                 <form action="#" class="form-container5">
                                     <label for="edition" class="labelfont"><b>Miscellaneous</b></label>

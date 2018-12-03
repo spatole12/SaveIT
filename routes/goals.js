@@ -103,6 +103,10 @@ try {
   router.get("/", async (req, res) => {
     const goalList = await goalData.getAllgoals();
     const metaList = await metaData.getAllTransactions();
+    const usersList = await userData.getAllUsers();
+    // console.log(usersList);
+
+    const user = usersList.find(x => x.firstName == "administrator");
     var total = 0;
     var last_transaction = 0;
     if (metaList.length > 0) {
@@ -117,13 +121,19 @@ try {
         }
       }
     }
+    if (!isNaN(user.percent_amount.amt1) && (total >= user.percent_amount.amt1))
+      user.misc_amount = total - user.percent_amount.amt1;
+    if (isNaN(user.misc_amount) || user.misc_amount < 0)
+      user.misc_amount = 0;
+
     res.render('./index', {
       sitecss: "site.css",
       stylecss: "style.css",
       goals: goalList,
       home: true,
       totalsavings: total,
-      last_transaction: last_transaction
+      last_transaction: last_transaction,
+      userdata: user
     });
     // res.render("goals/index", {
     //   goals: goalList

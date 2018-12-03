@@ -54,14 +54,14 @@ let exportedMethods = {
     },
     async addgoal(title, description, tags, userId, gamount, gstatus, gpriority1, percent, gtype) {
         const goalCollection = await goals();
-
-
         const userCollection = await users1();
-        let misc_amount = await userCollection.find({
+        let userIS = await userCollection.findOne({
             "_id": userId
-        }, {
-            "misc_amount": 1
-        }).toArray();
+        });
+        userIS =JSON.stringify(userIS);
+        userIS =JSON.parse(userIS);
+
+        console.log("misc amount = "+userIS["misc_amount"]);
         let user_obj = await userCollection.findOne({
             "_id": userId
         });
@@ -88,7 +88,7 @@ let exportedMethods = {
                 });
             });
             //update priorities in userCollection			
-            if (new_goal_amt > misc_amount["misc_amount"]) {
+            if (new_goal_amt > userIS["misc_amount"]) {
 
                 console.log("in hieeeee");
 
@@ -117,7 +117,7 @@ let exportedMethods = {
                             });
                         }
                         let misc_amt1 = amt_rem - total_amt_otherprio;
-                        let misc_amt2 = Number(misc_amt1) + Number(misc_amount["misc_amount"]);
+                        let misc_amt2 = Number(misc_amt1) + Number(userIS["misc_amount"]);
                         console.log("=====misc_amt2=======" + misc_amt2);
                         percent_amount1["priority_n_amt"] = priority_n_amt1;
                         userCollection.updateOne({
@@ -125,7 +125,7 @@ let exportedMethods = {
                         }, {
                             $set: {
                                 percent_amount: percent_amount1,
-                                misc_amount: misc_amt2
+                                // misc_amount: misc_amt2
                             }
                         });
 
@@ -134,15 +134,15 @@ let exportedMethods = {
                 });
 
             } else {
-                console.log("========In yohooo=======");
-                let misc_amt1 = Number(misc_amount["misc_amount"]) - Number(new_goal_amt);
-                userCollection.updateOne({
-                    "_id": userId
-                }, {
-                    $set: {
-                        misc_amount: misc_amt1
-                    }
-                });
+                // console.log("========In yohooo=======");
+                // let misc_amt1 = Number(userIS["misc_amount"]) - Number(new_goal_amt);
+                // userCollection.updateOne({
+                //     "_id": userId
+                // }, {
+                //     $set: {
+                //         misc_amount: misc_amt1
+                //     }
+                // });
             }
         } else {
             console.log("======:):):)========")
@@ -168,16 +168,16 @@ let exportedMethods = {
                 });
             }
             gfulfilment = new_goal_amt;
-            let misc_amt1 = Number(misc_amount["misc_amount"]) - Number(new_goal_amt);
-            if (!(isNaN(misc_amt1))) {
-                userCollection.updateOne({
-                    "_id": userId
-                }, {
-                    $set: {
-                        misc_amount: misc_amt1
-                    }
-                });
-            }
+            let misc_amt1 = Number(userIS["misc_amount"]) - Number(new_goal_amt);
+            // if (!(isNaN(misc_amt1))) {
+            //     userCollection.updateOne({
+            //         "_id": userId
+            //     }, {
+            //         $set: {
+            //             misc_amount: misc_amt1
+            //         }
+            //     });
+            // }
         }
 
         console.log("=======================================================");
@@ -225,31 +225,37 @@ let exportedMethods = {
         let users_arr = await userCollection.findOne({
             "_id": userId
         });
-        console.log("misc_amount" + users_arr["misc_amount"]);
+        console.log("misc_amount" + users_arr.percent_amount.savings -users_arr.percent_amount.amt1);
         
-        if (amt_to_remove < Number(users_arr["misc_amount"])) {
+        if (amt_to_remove <= Number(users_arr.percent_amount.savings -users_arr.percent_amount.amt1)) {
             console.log("In SP: if 1");
-            let amt_rem = Number(users_arr["misc_amount"]) - Number(amt_to_remove);
+            let amt_rem = Number(users_arr.percent_amount.savings -users_arr.percent_amount.amt1) - Number(amt_to_remove);
+            let peramt = users_arr["percent_amount"];
+            let amt_to_remove_sav = Number(peramt["savings"]) - Number(amt_to_remove);
             await userCollection.updateOne({
                 "_id": userId
             }, {
                 $set: {
-                    "misc_amount": amt_rem
+                    "misc_amount": amt_rem,
+                    "percent_amount.savings" : amt_to_remove_sav
                 }
             });
         } else {
             console.log("In SP: if 2");
-            let amt_rem = Number(amt_to_remove) - Number(users_arr["misc_amount"]);
+            let amt_rem = Number(amt_to_remove) - Number(users_arr.percent_amount.savings -users_arr.percent_amount.amt1);
+            let peramt = users_arr["percent_amount"];
+            let amt_to_remove_sav = Number(peramt["savings"]) - Number(amt_to_remove);
             await userCollection.updateOne({
                 "_id": userId
             }, {
                 $set: {
-                    "misc_amount": 0
+                    "misc_amount": 0,
+                    "percent_amount.savings" : amt_to_remove_sav
                 }
             });
             let break_flag = 0;
 
-            for (let j = goals_arr.length + 1; j > 0; j--) {
+            for (let j = goals_arr.length ; j >= 0; j--) {
                 //goals_arr.forEach( function(goal_obj)
                 console.log("goals_arr.length" + goals_arr.length)
                 for (let i = 0; i < goals_arr.length; i++) {
@@ -261,6 +267,7 @@ let exportedMethods = {
                         //find with priority j
                         console.log("amt_rem" + amt_rem);
                         let amt_left_after_withrawal = goal_obj["gfulfilment"] - amt_rem;
+                        console.log("amt_left_after_withrawal"+amt_left_after_withrawal);
                         let pf = (amt_left_after_withrawal/goal_obj["gamount"])*100;
                         if (amt_left_after_withrawal < 0) {
                             console.log("====SP:<0=====");
