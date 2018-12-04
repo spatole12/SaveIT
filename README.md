@@ -3,6 +3,7 @@
 Steps to run SaveIT:
 
 Project Code:  https://github.com/spatole12/SaveIT.git
+User Testing Video Link:  https://drive.google.com/file/d/19rIqU74j5U8TQ4Ogj6HOGFZu-ObdaUGh/view?usp=sharing
 Steps to run the code:
 1.	To run our code first make sure that “node js” is installed. Below is the link to download and install node js
  	https://nodejs.org/en/download/
