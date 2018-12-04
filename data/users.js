@@ -229,12 +229,12 @@ let exportedMethods = {
           var transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-              user: 'shreesh.chavan@gmail.com',
-              pass: 'shree2009'
+              user: 'saveit.team@gmail.com',
+              pass: 'save1234'
             }
           });
           var mailOptions = {
-            from: 'shreesh.chavan@gmail.com',
+            from: 'saveit.team@gmail.com',
             to: per.email,
             subject: 'Your Goal ' + goalobj.gname + ' is accomplished',
             text: 'Congratulations! Your have enough savings to accomplish your goal: ' + goalobj.gname + '.'
